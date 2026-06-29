@@ -3,12 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ملخص شامل لكتاب العمل العميق لكال نيوبورت — قواعد النجاح المركّز في عالم مشتّت">
+<meta property="og:title" content="العمل العميق — Deep Work">
+<meta property="og:description" content="ملخص شامل لكتاب العمل العميق لكال نيوبورت — قواعد النجاح المركّز في عالم مشتّت">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ar_IQ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="العمل العميق — Deep Work">
+<meta name="twitter:description" content="ملخص شامل لكتاب العمل العميق لكال نيوبورت — قواعد النجاح المركّز في عالم مشتّت">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <title>العمل العميق — Deep Work</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap');
 :root{
-  --bg:#141720;--panel:#1a1e2e;--surface:#1f2438;--lift:#272e46;
-  --ink:#edf0fc;--muted:#7a82a6;--dim:#4a5272;--rule:rgba(255,255,255,.09);
+  --bg:#141720;--panel:#1e2234;--surface:#24283e;--lift:#2d3352;
+  --ink:#edf0fc;--muted:#b8c0dc;--dim:#8088b4;--rule:rgba(255,255,255,.14);
   --slate:#1e2640;
   --blue:#3b82f6;--blue-l:#93c5fd;--blue-dim:rgba(59,130,246,.14);--blue-pale:#eff6ff;
   --amber:#f59e0b;--amber-l:#fcd34d;--amber-dim:rgba(245,158,11,.14);
@@ -32,14 +41,14 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);line
 .hero-text{max-width:520px;text-align:right}
 .eyebrow{font-family:var(--f);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-l);margin-bottom:1.5rem}
 .hero-h1{font-family:var(--f);font-weight:900;font-size:clamp(2.8rem,8vw,6rem);line-height:1.02;margin-bottom:.5rem}
-.hero-h1 .en{display:block;font-size:36%;font-weight:300;color:rgba(232,234,242,.2);letter-spacing:.1em;margin-bottom:.3rem}
+.hero-h1 .en{display:block;font-size:36%;font-weight:300;color:rgba(232,234,242,.5);letter-spacing:.1em;margin-bottom:.3rem}
 .hero-h1 .deep{color:var(--blue-l)}
-.hero-desc{font-size:clamp(.92rem,1.8vw,1.15rem);color:rgba(232,234,242,.35);font-weight:300;margin-bottom:2.5rem;max-width:420px}
-.hero-author{font-size:.82rem;color:rgba(232,234,242,.2)}
+.hero-desc{font-size:clamp(.92rem,1.8vw,1.15rem);color:rgba(232,234,242,.72);font-weight:300;margin-bottom:2.5rem;max-width:420px}
+.hero-author{font-size:.82rem;color:rgba(232,234,242,.6)}
 .hero-author strong{color:var(--blue-l);font-weight:500}
 .hero-bar{position:relative;z-index:2;display:flex;gap:3rem;flex-wrap:wrap;padding:1.8rem 8%;border-top:1px solid var(--rule)}
 .hst .n{font-family:var(--f);font-size:1.8rem;font-weight:800;color:var(--amber-l);display:block}
-.hst .l{font-size:.68rem;color:rgba(232,234,242,.22);letter-spacing:.05em}
+.hst .l{font-size:.68rem;color:rgba(232,234,242,.62);letter-spacing:.05em}
 .sec{padding:5.5rem 8%}
 .dark{background:var(--panel)}.darker{background:var(--bg)}.light{background:var(--l-bg);color:var(--l-ink)}.white{background:var(--l-white);color:var(--l-ink)}
 .stag{font-family:var(--f);font-size:.67rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8rem}
@@ -76,7 +85,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);line
 .eq-box.intens .eq-label,.eq-box.intens .eq-val{color:var(--amber-l)}
 .eq-box.result .eq-label,.eq-box.result .eq-val{color:var(--green)}
 .eq-sub{font-size:.75rem;color:var(--muted);line-height:1.5}
-.eq-note{max-width:780px;padding:1rem 1.2rem;background:var(--blue-dim);border:1px solid rgba(59,130,246,.15);border-right:3px solid var(--blue-l);border-radius:4px;font-size:.83rem;color:rgba(232,234,242,.5);line-height:1.65}
+.eq-note{max-width:780px;padding:1rem 1.2rem;background:var(--blue-dim);border:1px solid rgba(59,130,246,.15);border-right:3px solid var(--blue-l);border-radius:4px;font-size:.83rem;color:rgba(232,234,242,.78);line-height:1.65}
 .eq-note strong{color:var(--blue-l)}
 .ideas-grid,.prac-grid{display:grid;gap:1.2rem}
 .ideas-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
@@ -92,7 +101,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);line
 .icard-title{color:var(--blue-l)}
 .pcard-title{color:var(--amber-l)}
 .icard-body,.pcard-body{font-size:.86rem;color:var(--muted);line-height:1.65}
-.icard-pull,.pcard-tip{margin-top:1rem;padding:.7rem .9rem;font-size:.78rem;color:rgba(232,234,242,.45);border-radius:3px}
+.icard-pull,.pcard-tip{margin-top:1rem;padding:.7rem .9rem;font-size:.78rem;color:rgba(232,234,242,.75);border-radius:3px}
 .icard-pull{background:var(--blue-dim);border-right:3px solid rgba(59,130,246,.4)}
 .pcard-tip{background:var(--amber-dim);border-right:3px solid rgba(245,158,11,.4)}
 .phil-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
@@ -137,7 +146,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);line
 .sstep-n{font-family:var(--f);font-size:2.5rem;font-weight:900;color:var(--dim);line-height:1;margin-bottom:.6rem;display:block}
 .sstep-title{font-family:var(--f);font-size:.9rem;font-weight:700;color:var(--blue-l);margin-bottom:.4rem}
 .sstep-body{font-size:.8rem;color:var(--muted);line-height:1.65}
-footer{background:var(--bg);color:rgba(232,234,242,.18);text-align:center;padding:2.5rem 8%;font-size:.78rem;border-top:1px solid var(--rule)}
+footer{background:var(--bg);color:rgba(232,234,242,.5);text-align:center;padding:2.5rem 8%;font-size:.78rem;border-top:1px solid var(--rule)}
 footer strong{color:var(--blue-l)}
 @media(max-width:660px){
   .hero-inner{padding:4rem 6% 2rem}
@@ -358,7 +367,7 @@ footer strong{color:var(--blue-l)}
           <span class="pc-col-title pro">المزايا</span>
           <ul class="pc-list pro">
             <li>قابلة للتطبيق في معظم الجداول</li>
-            <li>تُقلل الاحتكاك اليومي بالتكرار</li>
+            <li>تُقلل الصعوبات اليومي بالتكرار</li>
             <li>تبني ثقة وزخم تدريجي</li>
           </ul>
         </div>
@@ -410,7 +419,7 @@ footer strong{color:var(--blue-l)}
 <section class="sec white">
   <p class="stag">طقوس العمل العميق</p>
   <h2 class="sh2">طقوس تُهيّئ العقل للعمق</h2>
-  <p class="sintro">نيوبورت يُصرّ على أن العمل العميق يحتاج طقوساً — لا لمجرد الشعور الجيد بل لتقليل الاحتكاك وتوفير الإرادة</p>
+  <p class="sintro">نيوبورت يُصرّ على أن العمل العميق يحتاج طقوساً — لا لمجرد الشعور الجيد بل لتقليل الصعوبات وتوفير الإرادة</p>
   <div class="rituals-list">
     <div class="rrow">
       <div class="rrow-num">١</div>
