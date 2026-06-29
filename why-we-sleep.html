@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>لماذا ننام — ملخص كتاب ماثيو ووكر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --night:#111b35; --midnight:#1c2848; --indigo:#263460; --indigo-soft:#344270;
+    --moon:#F2EEFF; --muted:#ACB4D4; --muted-dim:#8088AE;
+    --lavender:#A99BE8; --rem:#E69ACB; --light:#6E78C4; --deep:#5B53B8;
+    --dawn:#F2B07A; --line:rgba(169,155,232,.16); --maxw:1080px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--night);color:var(--moon);font-family:"Tajawal",system-ui,sans-serif;font-weight:300;line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::selection,::selection{background:var(--lavender);color:var(--night)}
+
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 12%, rgba(239,235,250,.7), transparent),
+      radial-gradient(1px 1px at 72% 8%, rgba(239,235,250,.5), transparent),
+      radial-gradient(1px 1px at 40% 22%, rgba(239,235,250,.4), transparent),
+      radial-gradient(1.5px 1.5px at 88% 16%, rgba(239,235,250,.6), transparent),
+      radial-gradient(1px 1px at 12% 30%, rgba(239,235,250,.35), transparent),
+      radial-gradient(1px 1px at 60% 28%, rgba(239,235,250,.45), transparent);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0%, transparent 35%);
+            mask-image:linear-gradient(to bottom, #000 0%, transparent 35%);
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px;position:relative}
+  .eyebrow{font-family:"Tajawal";font-weight:500;letter-spacing:.18em;font-size:.82rem;color:var(--lavender);text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:14px}
+  .eyebrow::after{content:"";height:1px;flex:0 0 64px;background:linear-gradient(to left,var(--lavender),transparent)}
+  h1{font-family:"El Messiri";font-weight:700;line-height:1.08;font-size:clamp(3rem,11vw,7rem);letter-spacing:-.01em;margin-bottom:8px}
+  h1 .glow{color:var(--moon);text-shadow:0 0 60px rgba(169,155,232,.45)}
+  .subtitle{font-family:"El Messiri";font-weight:400;font-size:clamp(1.1rem,3vw,1.6rem);color:var(--muted);margin-bottom:38px}
+  .byline{font-size:1rem;color:var(--muted-dim);max-width:46ch}
+  .byline b{color:var(--moon);font-weight:500}
+
+  .hypno-block{margin-top:54px}
+  .hypno-label{display:flex;justify-content:space-between;align-items:baseline;font-size:.78rem;color:var(--muted-dim);letter-spacing:.05em;margin-bottom:10px}
+  .hypno-label span{font-weight:500}
+  .hypno{width:100%;height:auto;display:block;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0}
+  .stage-key{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:.78rem;color:var(--muted)}
+  .stage-key i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-inline-end:6px;vertical-align:middle}
+
+  .hypno path.trace{fill:none;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;stroke:url(#grad);stroke-dasharray:3400;stroke-dashoffset:3400;animation:draw 4.5s cubic-bezier(.55,.1,.25,1) .4s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  section{padding:84px 0;position:relative}
+  .sec-head{margin-bottom:46px;max-width:60ch}
+  .kicker{font-family:"Tajawal";font-weight:500;color:var(--lavender);font-size:.85rem;letter-spacing:.12em;margin-bottom:14px}
+  .kicker .num{color:var(--muted-dim);margin-inline-start:10px;font-variant-numeric:tabular-nums}
+  h2{font-family:"El Messiri";font-weight:600;font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.2;margin-bottom:18px}
+  .sec-head p{color:var(--muted);font-size:1.08rem;max-width:54ch}
+  p.body{color:var(--muted);font-size:1.05rem;max-width:62ch;margin-bottom:18px}
+  p.body b{color:var(--moon);font-weight:500}
+
+  .divider{height:1px;background:linear-gradient(to left,transparent,var(--line),transparent);max-width:var(--maxw);margin:0 auto}
+
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .governor{background:var(--midnight);border:1px solid var(--line);border-radius:18px;padding:32px;position:relative;overflow:hidden}
+  .governor::before{content:"";position:absolute;inset:0;opacity:.5;background:radial-gradient(120% 90% at 100% 0%,rgba(169,155,232,.10),transparent 60%)}
+  .governor h3{font-family:"El Messiri";font-weight:600;font-size:1.45rem;margin-bottom:6px;position:relative}
+  .governor .tag{font-size:.78rem;color:var(--lavender);letter-spacing:.08em;margin-bottom:16px;position:relative}
+  .governor p{color:var(--muted);font-size:.98rem;position:relative}
+
+  .stages{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .stage{padding:28px;border-radius:16px;border:1px solid var(--line);background:var(--midnight);position:relative}
+  .stage .bar{position:absolute;top:0;right:0;height:100%;width:4px;border-radius:0 16px 16px 0}
+  .stage h3{font-family:"El Messiri";font-size:1.3rem;font-weight:600;margin-bottom:4px}
+  .stage .lat{font-size:.78rem;color:var(--muted-dim);letter-spacing:.04em;margin-bottom:14px}
+  .stage p{color:var(--muted);font-size:.96rem}
+
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .benefit{padding:26px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,var(--midnight),var(--night))}
+  .benefit .glyph{font-family:"El Messiri";font-size:1.6rem;color:var(--lavender);line-height:1;margin-bottom:14px;font-weight:700}
+  .benefit h3{font-family:"El Messiri";font-size:1.18rem;font-weight:600;margin-bottom:8px}
+  .benefit p{color:var(--muted);font-size:.94rem}
+
+  .danger{background:linear-gradient(180deg,#0A0E22,#120A1C)}
+  .risks{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .risk{padding:30px;border-bottom:1px solid var(--line)}
+  .risk:nth-child(odd){border-inline-start:1px solid var(--line)}
+  .risk h3{font-family:"El Messiri";font-size:1.2rem;font-weight:600;margin-bottom:8px;color:var(--rem)}
+  .risk p{color:var(--muted);font-size:.96rem}
+  .risk:nth-last-child(-n+2){border-bottom:none}
+  .pull{font-family:"El Messiri";font-weight:600;font-size:clamp(1.6rem,4.5vw,2.6rem);line-height:1.35;text-align:center;max-width:24ch;margin:0 auto 50px;color:var(--moon)}
+  .pull em{color:var(--rem);font-style:normal}
+
+  .dawn-sec{background:linear-gradient(180deg,#0E1430 0%,#241a35 60%,#3a2535 100%);position:relative}
+  .dawn-sec::after{content:"";position:absolute;left:0;right:0;bottom:0;height:340px;background:radial-gradient(120% 100% at 50% 100%,rgba(242,176,122,.22),transparent 70%);pointer-events:none}
+  .tips{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 30px;position:relative}
+  .tip{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:"El Messiri";font-weight:700;font-size:1.1rem;color:var(--dawn);flex:0 0 auto;min-width:1.4em;font-variant-numeric:tabular-nums}
+  .tip p{color:var(--moon);font-size:1rem;font-weight:400}
+  .tip p span{display:block;color:var(--muted);font-size:.88rem;font-weight:300;margin-top:2px}
+
+  .closing{text-align:center;padding:110px 0 130px;position:relative}
+  .closing .moon{width:90px;height:90px;border-radius:50%;margin:0 auto 40px;background:radial-gradient(circle at 38% 35%,#FBE9C9,#F2B07A 55%,#C77B4A);box-shadow:0 0 90px rgba(242,176,122,.5)}
+  .closing blockquote{font-family:"El Messiri";font-weight:500;font-size:clamp(1.5rem,4.5vw,2.4rem);line-height:1.45;max-width:22ch;margin:0 auto 24px}
+  .closing cite{font-style:normal;color:var(--muted);font-size:1rem}
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted-dim);font-size:.85rem}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:760px){
+    .duo,.stages,.benefits,.risks,.tips{grid-template-columns:1fr}
+    .risk:nth-child(odd){border-inline-start:none}
+    .risk{border-bottom:1px solid var(--line)!important}
+    .risk:last-child{border-bottom:none!important}
+    section{padding:64px 0}
+    .tip{padding:16px 0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .hypno path.trace{animation:none;stroke-dashoffset:0}
+    .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<style>.__nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,28px);background:rgba(12,10,8,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(207,164,69,.2);gap:12px;}.__nb{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#efe7d4;font-weight:700;font-size:.85rem;flex-shrink:0;font-family:'Cairo','Tajawal',sans-serif;}.__ns{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#cfa445,#9c7420);display:grid;place-items:center;font-size:.88rem;font-weight:800;color:#1a1714;flex:none;}.__nm{font-size:.72rem;color:rgba(207,164,69,.62);letter-spacing:.08em;flex:1;text-align:center;font-family:monospace;}.__narr{display:flex;gap:8px;flex-shrink:0;}.__na{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:99px;border:1px solid rgba(207,164,69,.25);color:#cfa445;font-size:.75rem;font-weight:600;text-decoration:none;transition:.15s;line-height:1;font-family:'Cairo','Tajawal',sans-serif;}.__na:hover{background:rgba(207,164,69,.1);border-color:rgba(207,164,69,.5);}.__na.off{opacity:.2;cursor:default;pointer-events:none;}body{padding-top:58px;}@media(max-width:500px){.__nm{display:none}.__na .t{display:none}}</style>
+<nav class="__nav" dir="rtl"><a href="index.html" class="__nb"><span class="__ns">ك</span><span>كرّاسة الممارِس</span></a><span class="__nm">02 / 10</span><div class="__narr"><a class="__na" href="atomic-habits.html"><span class="t">السابق</span></a><a class="__na" href="dopamine-nation-1.html"><span class="t">التالي</span></a></div></nav>
+<div class="stars" aria-hidden="true"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">ملخّص كتاب</div>
+    <h1><span class="glow">لماذا</span> ننام</h1>
+    <p class="subtitle">إطلاق العنان لقوة النوم والأحلام</p>
+    <p class="byline">للكاتب <b>ماثيو ووكر</b>، عالم الأعصاب ومدير مركز علوم النوم البشري في جامعة بيركلي. رحلةٌ علميّةٌ في الثلث المفقود من حياتنا — ولماذا قد يكون أهمّ ثلثٍ فيها.</p>
+
+    <div class="hypno-block">
+      <div class="hypno-label"><span>المساء — بداية النوم</span><span>الفجر — الاستيقاظ</span></div>
+      <svg class="hypno" viewBox="0 0 1000 280" preserveAspectRatio="none" role="img" aria-label="مخطّط مراحل النوم عبر ليلة كاملة يُظهر دورات متعاقبة من النوم العميق ونوم الأحلام">
+        <defs>
+          <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5B53B8"/>
+            <stop offset="55%" stop-color="#A99BE8"/>
+            <stop offset="100%" stop-color="#E69ACB"/>
+          </linearGradient>
+        </defs>
+        <path class="trace" d="M0,24 L55,24 L55,120 L95,120 L95,176 L150,176 L150,240 L300,240 L300,176 L360,176 L360,78 L405,78 L405,176 L455,176 L455,240 L545,240 L545,176 L610,176 L610,78 L685,78 L685,120 L720,120 L720,176 L780,176 L780,78 L880,78 L880,120 L915,120 L915,78 L975,78 L975,24 L1000,24" />
+      </svg>
+      <div class="stage-key">
+        <span><i style="background:#F2B07A"></i>يقظة</span>
+        <span><i style="background:#E69ACB"></i>نوم الأحلام REM</span>
+        <span><i style="background:#A99BE8"></i>نوم خفيف</span>
+        <span><i style="background:#5B53B8"></i>نوم عميق</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<section>
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <div class="kicker">الفكرة الكبرى<span class="num">٠١</span></div>
+      <h2>النوم ليس راحةً سلبية، بل عملٌ حيوي</h2>
+    </div>
+    <p class="body">لطالما نُظر إلى النوم باعتباره توقّفًا عن الحياة؛ فجوةً نملؤها بالكسل. يقلب ووكر هذه الصورة رأسًا على عقب: النوم ليس غياب نشاط، بل هو أكثر اللحظات التي يعمل فيها الدماغ والجسد بكثافة على <b>الترميم والتنظيم والشفاء</b>.</p>
+    <p class="body">لا يوجد عضو في الجسم ولا عملية في الدماغ لا تتحسّن بنوم كافٍ — ولا تتضرّر بفقدانه. هذه هي أطروحة الكتاب المركزية: النوم هو <b>أبسط وأقوى</b> ما يمكننا فعله لإعادة ضبط صحّتنا الجسدية والعقلية كل يوم، مجانًا.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <div class="kicker">من يقرّر متى ننام؟<span class="num">٠٢</span></div>
+      <h2>قوّتان تتحكّمان في نومنا</h2>
+      <p>يتحدّد توقيت نومنا ويقظتنا عبر نظامين مستقلّين يعملان معًا كأنهما عقربا ساعة.</p>
+    </div>
+    <div class="duo">
+      <div class="governor">
+        <div class="tag">النظام الأول</div>
+        <h3>الإيقاع اليومي</h3>
+        <p>ساعةٌ بيولوجية داخلية مدّتها نحو ٢٤ ساعة تتحكّم بها منطقة في الدماغ، وتضبطها أساسًا أشعّة الضوء. مع حلول المساء يُفرز هرمون <b style="color:var(--moon)">الميلاتونين</b> ليُعلن أن «وقت النوم قد حان» — لكنه لا يصنع النوم، بل يُطلق إشارة بدئه.</p>
+      </div>
+      <div class="governor">
+        <div class="tag">النظام الثاني</div>
+        <h3>ضغط النوم</h3>
+        <p>طوال يقظتنا تتراكم في الدماغ مادّة كيميائية تُدعى <b style="color:var(--moon)">الأدينوزين</b>، فيزداد الشعور بالنعاس ساعةً بعد ساعة. النوم وحده يكنسها. وهنا يكمن سرّ القهوة: <b style="color:var(--moon)">الكافيين</b> يحجب مستقبلات الأدينوزين فيخدعنا بشعورٍ زائف باليقظة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <div class="kicker">بنية الليلة<span class="num">٠٣</span></div>
+      <h2>مرحلتان تتناوبان كل تسعين دقيقة</h2>
+      <p>ينقسم النوم إلى نوعين يتبادلان السيطرة في دوراتٍ متتالية. الأوّل يهيمن على أوّل الليل، والثاني يطغى مع اقتراب الفجر.</p>
+    </div>
+    <div class="stages">
+      <div class="stage">
+        <div class="bar" style="background:var(--deep)"></div>
+        <h3>النوم العميق (NREM)</h3>
+        <div class="lat">موجات بطيئة عالية السعة</div>
+        <p>نوم الترميم والتثبيت. ينقل الذكريات الجديدة من المخزن المؤقّت إلى الأرشيف الدائم، ويُجري الجسم خلاله أعمال الصيانة الفسيولوجية. يتركّز معظمه في النصف الأوّل من الليل.</p>
+      </div>
+      <div class="stage">
+        <div class="bar" style="background:var(--rem)"></div>
+        <h3>نوم الأحلام (REM)</h3>
+        <div class="lat">حركة عين سريعة وشلل مؤقّت للجسد</div>
+        <p>نوم الإبداع والتنظيم العاطفي. يربط الدماغ فيه الأفكار البعيدة بطرق جديدة، ويُعيد معالجة مشاعر اليوم. يتمدّد في النصف الثاني من الليل — أي ما نخسره حين نستيقظ مبكّرين.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <div class="kicker">لماذا يستحقّ كل دقيقة<span class="num">٠٤</span></div>
+      <h2>ما الذي يفعله النوم من أجلنا</h2>
+    </div>
+    <div class="benefits">
+      <div class="benefit">
+        <div class="glyph">١</div>
+        <h3>يثبّت الذاكرة</h3>
+        <p>النوم قبل التعلّم يُهيّئ الدماغ لاستقبال المعلومات، والنوم بعده «يحفظ» ما تعلّمناه. ليلةٌ بلا نوم تُضعف قدرة الذاكرة بنحو ٤٠٪.</p>
+      </div>
+      <div class="benefit">
+        <div class="glyph">٢</div>
+        <h3>يُنظّم العواطف</h3>
+        <p>يخفّض النوم — وخاصّة مرحلة الأحلام — من حدّة ردود الفعل العاطفية، فيعمل كـ«علاجٍ ليلي» يمنحنا توازنًا واتّزانًا في اليوم التالي.</p>
+      </div>
+      <div class="benefit">
+        <div class="glyph">٣</div>
+        <h3>يحمي الجسد</h3>
+        <p>يُقوّي المناعة، ويضبط سكّر الدم والشهية والهرمونات، ويحافظ على صحّة القلب والشرايين. النوم الجيّد ركيزةٌ لكل عضو.</p>
+      </div>
+      <div class="benefit">
+        <div class="glyph">٤</div>
+        <h3>يُغذّي الإبداع</h3>
+        <p>في نوم الأحلام يمزج الدماغ المعارف بطرق غير متوقّعة، فتُولد الحلول والأفكار. كثيرٌ من الاكتشافات وُلدت من رحم نومٍ عميق.</p>
+      </div>
+      <div class="benefit">
+        <div class="glyph">٥</div>
+        <h3>ينظّف الدماغ</h3>
+        <p>أثناء النوم العميق يتفعّل نظام تصريفٍ يزيل الفضلات السامّة المتراكمة نهارًا، ومنها البروتينات المرتبطة بمرض ألزهايمر.</p>
+      </div>
+      <div class="benefit">
+        <div class="glyph">٦</div>
+        <h3>يرفع الأداء</h3>
+        <p>يحسّن التركيز وسرعة الاستجابة والدقّة الحركية. الرياضيّون الذين ينامون أكثر يتعافون أسرع ويُصابون أقلّ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="danger">
+  <div class="wrap reveal">
+    <p class="pull">«كلّما <em>قصُر</em> نومك، <em>قصُرت</em> حياتك.»</p>
+    <div class="sec-head">
+      <div class="kicker">الثمن الخفيّ<span class="num">٠٥</span></div>
+      <h2>ما الذي يكلّفنا قلّة النوم</h2>
+      <p>الحرمان من النوم لا يُسبّب نعاسًا فحسب؛ إنه يُتلف الجسد والعقل بصمتٍ، وأثره تراكمي.</p>
+    </div>
+    <div class="risks">
+      <div class="risk">
+        <h3>على الدماغ</h3>
+        <p>تتراجع الذاكرة والتركيز، وتظهر «نوماتٌ مجهرية» خاطفة. القيادة بعد السهر تُماثل القيادة تحت تأثير الكحول في خطورتها.</p>
+      </div>
+      <div class="risk">
+        <h3>على القلب والأيض</h3>
+        <p>يرتفع خطر أمراض القلب وارتفاع الضغط والسكّري من النوع الثاني والبدانة، إذ يختلّ توازن هرمونات الجوع والشبع.</p>
+      </div>
+      <div class="risk">
+        <h3>على المناعة</h3>
+        <p>تنخفض كفاءة الخلايا المناعية بشكلٍ حادّ بعد ليلةٍ واحدة ناقصة، ما يزيد قابلية العدوى ويُضعف الاستجابة للقاحات.</p>
+      </div>
+      <div class="risk">
+        <h3>على المشاعر</h3>
+        <p>تصبح مراكز الانفعال في الدماغ مفرطة النشاط، فتزداد القابلية للقلق والاكتئاب وتقلّب المزاج وفقدان ضبط النفس.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="dawn-sec">
+  <div class="wrap reveal">
+    <div class="sec-head">
+      <div class="kicker">نحو ليلةٍ أفضل<span class="num">٠٦</span></div>
+      <h2>وصفة ووكر للنوم الصحّي</h2>
+      <p>الكافيين والكحول وضوء الشاشات الأزرق هم ألدّ أعداء النوم في العصر الحديث. وهذه أبرز توصيات الكتاب لاستعادة لياليك.</p>
+    </div>
+    <div class="tips">
+      <div class="tip"><span class="n">١</span><p>التزم بمواعيد ثابتة<span>نَم واستيقظ في الوقت نفسه يوميًّا، حتى في العطلات.</span></p></div>
+      <div class="tip"><span class="n">٢</span><p>اضبط الضوء<span>تعرّض لضوء النهار صباحًا، وخفّت الإضاءة والشاشات مساءً.</span></p></div>
+      <div class="tip"><span class="n">٣</span><p>تجنّب الكافيين متأخّرًا<span>أثره يبقى ساعاتٍ طويلة، فأوقفه بعد منتصف النهار.</span></p></div>
+      <div class="tip"><span class="n">٤</span><p>لا تعتمد على الكحول<span>قد يُسرّع النعاس لكنه يُجزّئ النوم ويقمع مرحلة الأحلام.</span></p></div>
+      <div class="tip"><span class="n">٥</span><p>تحرّك خلال النهار<span>مارس الرياضة بانتظام، مع تجنّبها قبل النوم بساعتين.</span></p></div>
+      <div class="tip"><span class="n">٦</span><p>برّد الغرفة وأظلمها<span>الجوّ البارد المظلم الهادئ يُهيّئ الجسد لخفض حرارته.</span></p></div>
+      <div class="tip"><span class="n">٧</span><p>استرخِ قبل السرير<span>طقسٌ هادئ — حمّام دافئ، قراءة — يُمهّد للانتقال إلى النوم.</span></p></div>
+      <div class="tip"><span class="n">٨</span><p>لا تستلقِ مستيقظًا<span>إن لم يأتِ النوم، انهض وافعل شيئًا هادئًا حتى يعود.</span></p></div>
+    </div>
+  </div>
+
+  <div class="wrap closing reveal">
+    <div class="moon" aria-hidden="true"></div>
+    <blockquote>النوم ليس وقتًا ضائعًا… بل هو ما يجعل بقية الوقت ممكنًا.</blockquote>
+    <cite>— خلاصة «لماذا ننام»، ماثيو ووكر</cite>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">ملخّص تعريفي لكتاب «لماذا ننام» (Why We Sleep) — لا يُغني عن قراءة الكتاب الكامل.</div>
+</footer>
+
+<script>
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

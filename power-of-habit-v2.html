@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قوة العادات</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap');
+  :root{
+    --f:'Cairo',sans-serif;
+    --bg:#faf8f4; --white:#ffffff; --cream:#fefefc; --rule:#e8e2d8; --ink:#16120d; --mid:#3a3020; --muted:#7a6e5a;
+    --teal:#0f766e; --teal-l:#5eead4; --teal-dim:rgba(15,118,110,.13); --teal-pale:#f0fdfa;
+    --amber:#b45309; --amber-l:#fcd34d; --amber-dim:rgba(180,83,9,.13); --amber-pale:#fffbeb;
+    --rose:#be123c; --rose-l:#fda4af; --rose-dim:rgba(190,18,60,.12); --rose-pale:#fff1f2;
+    --violet:#6d28d9; --violet-pale:#f5f3ff;
+    --green:#15803d; --green-l:#86efac; --green-dim:rgba(21,128,61,.12); --green-pale:#f0fdf4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+  body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden}
+
+  .hero{min-height:100vh;background:var(--ink);color:#f5f3ee;display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden}
+  .circuit{position:absolute;left:3%;top:50%;transform:translateY(-50%);width:48vmin;height:48vmin;pointer-events:none}
+  .circuit svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:flex-end;padding:6rem 8% 3rem}
+  .hero-text{max-width:510px;text-align:right}
+  .eyebrow{font-family:var(--f);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-l);margin-bottom:1.5rem}
+  .hero-h1{font-family:var(--f);font-weight:900;font-size:clamp(2.8rem,7.5vw,5.8rem);line-height:1.05;margin-bottom:.5rem}
+  .hero-h1 .en{display:block;font-size:34%;font-weight:300;color:rgba(245,243,238,.2);letter-spacing:.1em;margin-bottom:.3rem}
+  .hero-h1 .pow{color:var(--teal-l)}
+  .hero-desc{font-size:clamp(.92rem,1.8vw,1.12rem);color:rgba(245,243,238,.38);font-weight:300;margin-bottom:2.5rem;max-width:420px}
+  .hero-author{font-size:.82rem;color:rgba(245,243,238,.22)}
+  .hero-author strong{color:var(--teal-l);font-weight:500}
+  .hero-bar{position:relative;z-index:2;display:flex;gap:3rem;flex-wrap:wrap;padding:1.8rem 8%;border-top:1px solid rgba(255,255,255,.07)}
+  .hst .n{font-family:var(--f);font-size:1.8rem;font-weight:800;color:var(--amber-l);display:block}
+  .hst .l{font-size:.68rem;color:rgba(245,243,238,.25);letter-spacing:.05em}
+
+  .sec{padding:5.5rem 8%}
+  .stag{font-family:var(--f);font-size:.67rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8rem}
+  .sh2{font-family:var(--f);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:.8rem}
+  .sintro{font-size:1rem;max-width:560px;margin-bottom:3rem;color:var(--muted)}
+
+  .loop-sec{background:var(--white)}.loop-sec .stag{color:var(--teal)}
+  .loop-three{display:grid;grid-template-columns:1fr 48px 1fr 48px 1fr;gap:0;align-items:center;max-width:860px;margin-bottom:2rem}
+  .lbox{padding:2rem 1.5rem;border-radius:8px;border:1.5px solid;text-align:center}
+  .lbox.cue{background:var(--rose-dim);border-color:var(--rose-l)}
+  .lbox.routine{background:var(--amber-dim);border-color:var(--amber-l)}
+  .lbox.reward{background:var(--teal-dim);border-color:var(--teal-l)}
+  .larrow{text-align:center;font-size:1.4rem;color:var(--muted)}
+  .lbox-icon{font-size:2rem;margin-bottom:.7rem;display:block}
+  .lbox-step{font-family:var(--f);font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem;display:block}
+  .lbox.cue .lbox-step{color:var(--rose)}.lbox.routine .lbox-step{color:var(--amber)}.lbox.reward .lbox-step{color:var(--teal)}
+  .lbox-title{font-family:var(--f);font-size:1.05rem;font-weight:800;margin-bottom:.4rem}
+  .lbox.cue .lbox-title{color:var(--rose)}.lbox.routine .lbox-title{color:var(--amber)}.lbox.reward .lbox-title{color:var(--teal)}
+  .lbox-body{font-size:.82rem;color:var(--muted);line-height:1.65}
+  .loop-note{max-width:860px;padding:1.1rem 1.4rem;border-radius:6px;background:var(--teal-pale);border:1.5px solid var(--teal-l);border-right:4px solid var(--teal);font-size:.86rem;color:var(--mid);line-height:1.7}
+  .loop-note strong{color:var(--teal)}
+
+  .golden-sec{background:var(--bg)}.golden-sec .stag{color:var(--amber)}
+  .golden-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:860px;margin-bottom:2rem}
+  .gcard{border-radius:8px;border:1.5px solid;padding:2rem}
+  .gcard.old{background:var(--rose-pale);border-color:var(--rose-l)}
+  .gcard.new{background:var(--green-pale);border-color:var(--green-l)}
+  .gcard-label{font-family:var(--f);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;display:block}
+  .gcard.old .gcard-label{color:var(--rose)}.gcard.new .gcard-label{color:var(--green)}
+  .gcard-icon{font-size:1.8rem;margin-bottom:.8rem;display:block}
+  .gcard-body{font-size:.875rem;color:var(--muted);line-height:1.7}
+  .gcard-flow{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+  .gf-item{display:grid;grid-template-columns:80px 1fr;gap:.5rem;font-size:.8rem;align-items:center}
+  .gf-key{font-family:var(--f);font-size:.68rem;font-weight:700;text-transform:uppercase;text-align:center;padding:.2rem .4rem;border-radius:3px}
+  .gcard.old .gf-key{background:var(--rose-l);color:var(--rose)}.gcard.new .gf-key{background:var(--green-l);color:var(--green)}
+  .gf-val{color:var(--mid)}
+  .golden-rule-box{max-width:860px;padding:1.5rem 2rem;border-radius:8px;background:var(--amber-pale);border:1.5px solid var(--amber-l);border-right:4px solid var(--amber);font-family:var(--f);font-size:1.05rem;font-weight:700;color:var(--amber);text-align:center;line-height:1.6}
+
+  .ideas-sec{background:var(--white)}.ideas-sec .stag{color:var(--teal)}
+  .ideas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+  .icard{border:1.5px solid var(--rule);border-radius:6px;padding:1.8rem;background:var(--cream);transition:border-color .2s,box-shadow .2s,transform .2s}
+  .icard:hover{border-color:var(--teal-l);box-shadow:0 6px 24px var(--teal-dim);transform:translateY(-3px)}
+  .icard-icon{font-size:1.6rem;margin-bottom:.9rem;display:block}
+  .icard-title{font-family:var(--f);font-size:.98rem;font-weight:700;color:var(--teal);margin-bottom:.5rem}
+  .icard-body{font-size:.86rem;color:var(--muted);line-height:1.65}
+  .icard-pull{margin-top:1rem;padding:.7rem .9rem;background:var(--teal-pale);border-right:3px solid var(--teal-l);font-size:.78rem;color:var(--mid);border-radius:3px}
+
+  .key-sec{background:var(--ink);color:#f5f3ee}.key-sec .stag{color:var(--teal-l)}.key-sec .sh2{color:#f5f3ee}.key-sec .sintro{color:rgba(245,243,238,.4)}
+  .key-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07);border-radius:8px;overflow:hidden;max-width:900px}
+  .kcard{background:#1e1a12;padding:2rem 1.8rem;transition:background .2s}
+  .kcard:hover{background:#2a251a}
+  .kcard-icon{font-size:1.6rem;margin-bottom:.8rem;display:block}
+  .kcard-title{font-family:var(--f);font-size:.95rem;font-weight:700;color:var(--teal-l);margin-bottom:.5rem}
+  .kcard-body{font-size:.82rem;color:rgba(245,243,238,.45);line-height:1.65}
+  .kcard-cascade{margin-top:.9rem;font-size:.75rem;color:rgba(245,243,238,.3);display:flex;flex-direction:column;gap:.25rem}
+  .kcard-cascade span::before{content:'↳ ';color:var(--teal-l)}
+  .key-insight{max-width:900px;margin-top:1.5rem;padding:1.1rem 1.4rem;border-radius:6px;background:rgba(94,234,212,.08);border:1px solid rgba(94,234,212,.18);border-right:3px solid var(--teal-l);font-size:.84rem;color:rgba(245,243,238,.5);line-height:1.7}
+  .key-insight strong{color:var(--teal-l)}
+
+  .quote-sec{background:var(--teal);color:white;text-align:center;padding:6rem 8%;position:relative;overflow:hidden}
+  .quote-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(254,215,170,.18) 0%,transparent 55%)}
+  .big-q{font-family:var(--f);font-size:clamp(1.3rem,3vw,2.2rem);font-weight:700;line-height:1.5;max-width:720px;margin:0 auto 1.2rem;position:relative;z-index:1}
+  .q-src{font-size:.8rem;color:rgba(255,255,255,.5);letter-spacing:.08em}
+
+  .crave-sec{background:var(--bg)}.crave-sec .stag{color:var(--violet)}
+  .crave-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0;max-width:860px;border:1.5px solid var(--rule);border-radius:8px;overflow:hidden}
+  .cstep{padding:2rem 1.5rem;border-left:1.5px solid var(--rule);background:var(--white);transition:background .2s}
+  .cstep:first-child{border-left:none}
+  .cstep:hover{background:var(--violet-pale)}
+  .cstep-n{font-family:var(--f);font-size:2.5rem;font-weight:900;color:var(--rule);line-height:1;margin-bottom:.6rem;display:block}
+  .cstep-title{font-family:var(--f);font-size:.9rem;font-weight:700;color:var(--violet);margin-bottom:.4rem}
+  .cstep-body{font-size:.8rem;color:var(--muted);line-height:1.65}
+  .crave-example{max-width:860px;margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .cex-card{padding:1.5rem;border-radius:6px;border:1.5px solid}
+  .cex-card.bad{background:var(--rose-pale);border-color:var(--rose-l)}
+  .cex-card.good{background:var(--green-pale);border-color:var(--green-l)}
+  .cex-label{font-family:var(--f);font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7rem;display:block}
+  .cex-card.bad .cex-label{color:var(--rose)}.cex-card.good .cex-label{color:var(--green)}
+  .cex-body{font-size:.84rem;color:var(--mid);line-height:1.6}
+
+  .prac-sec{background:var(--white)}.prac-sec .stag{color:var(--teal)}
+  .prac-list{display:flex;flex-direction:column;gap:0;max-width:800px}
+  .prow{display:grid;grid-template-columns:52px 1fr auto;gap:1.5rem;padding:1.8rem 0;border-bottom:1px solid var(--rule);align-items:start}
+  .prow:first-child{border-top:1px solid var(--rule)}
+  .prow-icon{width:52px;height:52px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:var(--teal-pale);border:1.5px solid var(--teal-l);transition:background .2s}
+  .prow:hover .prow-icon{background:var(--teal-l)}
+  .prow-title{font-family:var(--f);font-size:1rem;font-weight:700;margin-bottom:.35rem}
+  .prow-body{font-size:.875rem;color:var(--muted);line-height:1.65}
+  .prow-tip{display:inline-block;margin-top:.6rem;font-size:.72rem;color:var(--teal);background:var(--teal-pale);padding:.2rem .7rem;border-radius:20px}
+  .diff{font-family:var(--f);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .6rem;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:.2rem;align-self:flex-start}
+  .d-now{background:var(--green-pale);color:var(--green)}
+  .d-soon{background:var(--amber-pale);color:var(--amber)}
+  .d-deep{background:var(--violet-pale);color:var(--violet)}
+
+  footer{background:var(--ink);color:rgba(245,243,238,.2);text-align:center;padding:2.5rem 8%;font-size:.78rem}
+  footer strong{color:var(--teal-l)}
+
+  @media(max-width:660px){
+    .hero-inner{padding:4rem 6% 2rem}.hero-bar{padding:1.5rem 6%;gap:2rem}.sec{padding:3.5rem 6%}
+    .loop-three{grid-template-columns:1fr}.larrow{transform:rotate(90deg)}
+    .golden-wrap{grid-template-columns:1fr}.crave-steps{grid-template-columns:1fr 1fr}
+    .crave-example{grid-template-columns:1fr}.prow{grid-template-columns:52px 1fr}.diff{display:none}
+    .circuit{opacity:.15}
+  }
+</style>
+</head>
+<body>
+<style>.__nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,28px);background:rgba(12,10,8,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(207,164,69,.2);gap:12px;}.__nb{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#efe7d4;font-weight:700;font-size:.85rem;flex-shrink:0;font-family:'Cairo','Tajawal',sans-serif;}.__ns{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#cfa445,#9c7420);display:grid;place-items:center;font-size:.88rem;font-weight:800;color:#1a1714;flex:none;}.__nm{font-size:.72rem;color:rgba(207,164,69,.62);letter-spacing:.08em;flex:1;text-align:center;font-family:monospace;}.__narr{display:flex;gap:8px;flex-shrink:0;}.__na{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:99px;border:1px solid rgba(207,164,69,.25);color:#cfa445;font-size:.75rem;font-weight:600;text-decoration:none;transition:.15s;line-height:1;font-family:'Cairo','Tajawal',sans-serif;}.__na:hover{background:rgba(207,164,69,.1);border-color:rgba(207,164,69,.5);}.__na.off{opacity:.2;cursor:default;pointer-events:none;}body{padding-top:58px;}@media(max-width:500px){.__nm{display:none}.__na .t{display:none}}</style>
+<nav class="__nav" dir="rtl"><a href="index.html" class="__nb"><span class="__ns">ك</span><span>كرّاسة الممارِس</span></a><span class="__nm">05 / 10</span><div class="__narr"><a class="__na" href="subconscious-mind.html"><span class="t">السابق</span></a><a class="__na" href="flow-psychology.html"><span class="t">التالي</span></a></div></nav>
+
+<div class="hero">
+  <div class="circuit">
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <circle cx="150" cy="150" r="120" stroke="rgba(94,234,212,.12)" stroke-width="1"/>
+      <path d="M 150 30 A 120 120 0 0 1 254 195" stroke="rgba(253,164,175,.5)" stroke-width="2" stroke-dasharray="8,4" fill="none"><animate attributeName="stroke-dashoffset" from="200" to="0" dur="3s" repeatCount="indefinite"/></path>
+      <path d="M 254 195 A 120 120 0 0 1 46 195" stroke="rgba(253,211,77,.45)" stroke-width="2" stroke-dasharray="8,4" fill="none"><animate attributeName="stroke-dashoffset" from="200" to="0" dur="3s" begin="1s" repeatCount="indefinite"/></path>
+      <path d="M 46 195 A 120 120 0 0 1 150 30" stroke="rgba(94,234,212,.5)" stroke-width="2" stroke-dasharray="8,4" fill="none"><animate attributeName="stroke-dashoffset" from="200" to="0" dur="3s" begin="2s" repeatCount="indefinite"/></path>
+      <circle cx="150" cy="30"  r="26" fill="rgba(190,18,60,.25)"  stroke="rgba(253,164,175,.6)" stroke-width="1.5" filter="url(#glow)"/>
+      <text x="150" y="26" fill="rgba(253,164,175,.9)" font-size="9" text-anchor="middle" font-family="Cairo" font-weight="700">إشارة</text>
+      <text x="150" y="38" fill="rgba(253,164,175,.6)" font-size="7" text-anchor="middle" font-family="Cairo">Cue</text>
+      <circle cx="254" cy="195" r="26" fill="rgba(180,83,9,.25)"   stroke="rgba(253,211,77,.6)"  stroke-width="1.5" filter="url(#glow)"/>
+      <text x="254" y="191" fill="rgba(253,211,77,.9)" font-size="9" text-anchor="middle" font-family="Cairo" font-weight="700">روتين</text>
+      <text x="254" y="203" fill="rgba(253,211,77,.6)" font-size="7" text-anchor="middle" font-family="Cairo">Routine</text>
+      <circle cx="46"  cy="195" r="26" fill="rgba(15,118,110,.3)"  stroke="rgba(94,234,212,.6)"  stroke-width="1.5" filter="url(#glow)"/>
+      <text x="46" y="191" fill="rgba(94,234,212,.9)" font-size="9" text-anchor="middle" font-family="Cairo" font-weight="700">مكافأة</text>
+      <text x="46" y="203" fill="rgba(94,234,212,.6)" font-size="7" text-anchor="middle" font-family="Cairo">Reward</text>
+      <text x="150" y="145" fill="rgba(245,243,238,.22)" font-size="11" text-anchor="middle" font-family="Cairo" font-weight="700">الرغبة</text>
+      <text x="150" y="162" fill="rgba(245,243,238,.15)" font-size="9"  text-anchor="middle" font-family="Cairo">Craving</text>
+      <circle cx="150" cy="150" r="55" stroke="rgba(245,243,238,.07)" stroke-width="1" stroke-dasharray="4,4"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">ملخص وتطبيق · علم السلوك</p>
+      <h1 class="hero-h1">
+        <span class="en">The Power of Habit</span>
+        <span class="pow">قوة</span><br>العادات
+      </h1>
+      <p class="hero-desc">لماذا نفعل ما نفعله في الحياة والأعمال — وكيف نغيّره</p>
+      <p class="hero-author">تأليف: <strong>تشارلز دوهيج</strong></p>
+    </div>
+  </div>
+
+  <div class="hero-bar">
+    <div class="hst"><span class="n">٤٠٪</span><span class="l">من أفعالنا اليومية عادات لا قرارات</span></div>
+    <div class="hst"><span class="n">٣</span><span class="l">مكونات الحلقة الذهبية</span></div>
+    <div class="hst"><span class="n">٦٦</span><span class="l">يوماً لترسيخ العادة الجديدة</span></div>
+  </div>
+</div>
+
+<section class="sec loop-sec">
+  <p class="stag">الفكرة الجوهرية</p>
+  <h2 class="sh2">حلقة العادة الذهبية</h2>
+  <p class="sintro">كل عادة جيدة أو سيئة تعمل بنفس الآلية الثلاثية التي اكتشفها الباحثون في MIT</p>
+  <div class="loop-three">
+    <div class="lbox cue">
+      <span class="lbox-icon">👁️</span>
+      <span class="lbox-step">الخطوة الأولى</span>
+      <div class="lbox-title">الإشارة</div>
+      <p class="lbox-body">مُحفّز يُخبر دماغك بتشغيل الوضع الآلي. وقت، مكان، عاطفة، شخص، أو سلوك سابق.</p>
+    </div>
+    <div class="larrow">←</div>
+    <div class="lbox routine">
+      <span class="lbox-icon">🔄</span>
+      <span class="lbox-step">الخطوة الثانية</span>
+      <div class="lbox-title">الروتين</div>
+      <p class="lbox-body">السلوك الجسدي أو العقلي أو العاطفي الذي يتبع الإشارة. هذا ما يمكن تغييره.</p>
+    </div>
+    <div class="larrow">←</div>
+    <div class="lbox reward">
+      <span class="lbox-icon">⭐</span>
+      <span class="lbox-step">الخطوة الثالثة</span>
+      <div class="lbox-title">المكافأة</div>
+      <p class="lbox-body">ما يُخبر دماغك إذا كانت هذه الحلقة تستحق الحفظ. الدوبامين يُرسّخ الارتباط.</p>
+    </div>
+  </div>
+  <div class="loop-note">
+    <strong>الكشف الأهم:</strong> بمرور الوقت تتحوّل الحلقة إلى <strong>رغبة (Craving)</strong> — الدماغ يتوقع المكافأة فور رؤية الإشارة فيُولّد رغبة قهرية. هذا هو جوهر قوة العادات ولماذا يصعب كسرها بالإرادة وحدها.
+  </div>
+</section>
+
+<section class="sec golden-sec">
+  <p class="stag">القاعدة الذهبية</p>
+  <h2 class="sh2">القاعدة الذهبية لتغيير العادة</h2>
+  <p class="sintro">أقوى قانون في تغيير السلوك — ثابت من الإدمان لعادات الشركات الكبرى</p>
+  <div class="golden-wrap">
+    <div class="gcard old">
+      <span class="gcard-label">المحاولة الفاشلة — التجاهل</span>
+      <span class="gcard-icon">❌</span>
+      <p class="gcard-body">محاولة محو العادة بالإرادة لا تعمل لأن الحلقة محفوظة في العقدة القاعدية وتبقى للأبد.</p>
+      <div class="gcard-flow">
+        <div class="gf-item"><span class="gf-key">إشارة</span><span class="gf-val">تبقى كما هي</span></div>
+        <div class="gf-item"><span class="gf-key">روتين</span><span class="gf-val">محاولة الإلغاء ← فشل</span></div>
+        <div class="gf-item"><span class="gf-key">مكافأة</span><span class="gf-val">الرغبة تُسيطر ← انتكاس</span></div>
+      </div>
+    </div>
+    <div class="gcard new">
+      <span class="gcard-label">القاعدة الذهبية — الاستبدال</span>
+      <span class="gcard-icon">✅</span>
+      <p class="gcard-body">احتفظ بنفس الإشارة والمكافأة — لكن أبدل الروتين. الدماغ يُبرمج من جديد والرغبة تُوجَّه لسلوك جديد.</p>
+      <div class="gcard-flow">
+        <div class="gf-item"><span class="gf-key">إشارة</span><span class="gf-val">نفس الإشارة الأصلية</span></div>
+        <div class="gf-item"><span class="gf-key">روتين</span><span class="gf-val">← روتين جديد مختار</span></div>
+        <div class="gf-item"><span class="gf-key">مكافأة</span><span class="gf-val">نفس المكافأة المطلوبة</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="golden-rule-box">لا تُلغِ العادة — استبدل روتينها.<br>أبقِ الإشارة واحتفظ بالمكافأة وغيّر ما بينهما.</div>
+</section>
+
+<section class="sec ideas-sec">
+  <p class="stag">الأفكار الجوهرية</p>
+  <h2 class="sh2">أبرز ما يكشفه الكتاب</h2>
+  <p class="sintro">أفكار تُغيّر نظرتك للسلوك البشري والتغيير</p>
+  <div class="ideas-grid">
+    <div class="icard">
+      <span class="icard-icon">🧠</span>
+      <div class="icard-title">العقدة القاعدية — محرك العادات</div>
+      <p class="icard-body">بينما يُفكر القشرة الدماغية في القرارات الواعية، تُنفّذ العقدة القاعدية العادات تلقائياً. الحلقة المحفوظة تنتظر — الرغبة القديمة تعود في لحظات الضعف.</p>
+      <div class="icard-pull">العادات لا تُمحى — تُستبدل أو تُكبح فقط</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">🔑</span>
+      <div class="icard-title">العادات الحجرية الأساس</div>
+      <p class="icard-body">بعض العادات تُطلق سلسلة تغييرات إيجابية في مجالات أخرى تلقائياً. الرياضة المنتظمة مثلاً تُحسّن النوم والتغذية والإنتاجية دون قصد مباشر.</p>
+      <div class="icard-pull">ابحث عن عادتك الحجرية — واحدة تُحرّك عشراً</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">💫</span>
+      <div class="icard-title">قوة الإرادة كعضلة</div>
+      <p class="icard-body">الإرادة مورد محدود يُستنزف خلال اليوم. الحل: تحويل السلوكيات المهمة لعادات تلقائية لا تحتاج إرادة — فتوفيرها للقرارات الكبيرة.</p>
+      <div class="icard-pull">الناجحون لا يملكون إرادة أقوى — بل عادات أكثر تلقائية</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">🏆</span>
+      <div class="icard-title">انتصارات صغيرة تُشعل الزخم</div>
+      <p class="icard-body">الانتصارات الصغيرة المتراكمة تُغيّر كيفية نظرتك لنفسك. حين تُنجح في تغيير عادة صغيرة دماغك يُعيد برمجة هويتك نحو "أنا قادر على التغيير".</p>
+      <div class="icard-pull">ابدأ بانتصار صغير — الزخم يبني نفسه</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">🏢</span>
+      <div class="icard-title">العادات المؤسسية</div>
+      <p class="icard-body">الشركات لها عادات جماعية تُشكّل ثقافتها. الفرق بين الناجحة وغيرها هو وعيها بعاداتها وقدرتها على تشكيلها. Starbucks وP&G نماذج واضحة.</p>
+      <div class="icard-pull">ثقافة الشركة = مجموع عادات قادتها</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">🌊</span>
+      <div class="icard-title">الأزمات كفرصة للتغيير</div>
+      <p class="icard-body">الأزمات والتغييرات الكبيرة تكسر الحلقات القديمة وتُفتح نوافذ لإعادة البرمجة. نافذة التغيير محدودة — استثمرها فور انفتاحها.</p>
+      <div class="icard-pull">الأزمة تُفتح نافذة التغيير — المدة محدودة</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec key-sec">
+  <p class="stag">أقوى مفهوم في الكتاب</p>
+  <h2 class="sh2">العادات الحجرية — Keystone Habits</h2>
+  <p class="sintro">عادات قليلة لها قدرة تحريك سلاسل تغييرات إيجابية تلقائية في مجالات لم تخطط لها</p>
+  <div class="key-grid">
+    <div class="kcard">
+      <span class="kcard-icon">🏃</span>
+      <div class="kcard-title">الرياضة المنتظمة</div>
+      <p class="kcard-body">الحجر الأساس الأشهر. تبدأ بتمرين صباحي وتجد نفسك تأكل أفضل وتنام أعمق وتعمل أكثر إنتاجاً.</p>
+      <div class="kcard-cascade"><span>تغذية صحية أفضل</span><span>نوم أعمق وأطول</span><span>إنتاجية وتركيز أعلى</span><span>مزاج وثقة بالنفس أفضل</span></div>
+    </div>
+    <div class="kcard">
+      <span class="kcard-icon">🍽️</span>
+      <div class="kcard-title">تسجيل الطعام اليومي</div>
+      <p class="kcard-body">كتابة كل ما تأكله يومياً تُحوّل الأكل من سلوك آلي لسلوك واعٍ وتُنشر الوعي لمجالات أخرى.</p>
+      <div class="kcard-cascade"><span>وعي غذائي كامل</span><span>تقليل تلقائي للسعرات</span><span>تعلم الانضباط الذاتي</span></div>
+    </div>
+    <div class="kcard">
+      <span class="kcard-icon">📔</span>
+      <div class="kcard-title">اليوميات والتخطيط</div>
+      <p class="kcard-body">تحديد أولوياتك كتابياً كل صباح ينقل يومك من الاستجابة للمبادرة في العمل والعلاقات.</p>
+      <div class="kcard-cascade"><span>وضوح الأهداف اليومية</span><span>تقليل قرارات الطاقة</span><span>شعور بالسيطرة والإنجاز</span></div>
+    </div>
+    <div class="kcard">
+      <span class="kcard-icon">😴</span>
+      <div class="kcard-title">روتين النوم الثابت</div>
+      <p class="kcard-body">وقت ثابت للنوم والاستيقاظ يُعيد ضبط الساعة البيولوجية ويُطلق سلسلة تحسينات صحية ومعرفية.</p>
+      <div class="kcard-cascade"><span>طاقة أعلى طوال اليوم</span><span>قرارات أفضل وأوضح</span><span>مقاومة أقوى للإجهاد</span></div>
+    </div>
+  </div>
+  <div class="key-insight"><strong>استراتيجية دوهيج:</strong> بدلاً من تغيير عشر عادات معاً — ابحث عن عادتك الحجرية الواحدة. ابدأ بها وراقب كيف تنتشر تأثيراتها تلقائياً. <strong>الرياضة الصباحية هي الأكثر بحثاً وتوثيقاً.</strong></div>
+</section>
+
+<section class="quote-sec">
+  <p class="big-q">"الإرادة ليست مجرد مهارة — إنها عضلة كالعضلات في ذراعيك أو ساقيك، وتُصاب بالإرهاق حين تعمل كثيراً"</p>
+  <p class="q-src">— تشارلز دوهيج، The Power of Habit</p>
+</section>
+
+<section class="sec crave-sec">
+  <p class="stag">الآلية الخفية</p>
+  <h2 class="sh2">كيف تنشأ الرغبة — The Craving Brain</h2>
+  <p class="sintro">كيف تُحوّل الشركات الكبرى المنتجات لعادات راسخة — بنفس آلية نشوء كل الإدمانات</p>
+  <div class="crave-steps">
+    <div class="cstep"><span class="cstep-n">١</span><div class="cstep-title">الإشارة تُطلق التوقع</div><p class="cstep-body">بمجرد رؤية الإشارة يبدأ الدماغ بإطلاق الدوبامين قبل الروتين وقبل المكافأة. التوقع نفسه يُولّد الرغبة.</p></div>
+    <div class="cstep"><span class="cstep-n">٢</span><div class="cstep-title">الدوبامين يرتفع</div><p class="cstep-body">هذا الارتفاع المبكر هو الرغبة ليس المتعة. يشعر كالجوع العاطفي ويصعب مقاومته بالإرادة وحدها.</p></div>
+    <div class="cstep"><span class="cstep-n">٣</span><div class="cstep-title">الروتين يُنفَّذ آلياً</div><p class="cstep-body">الدماغ يُنفّذ الروتين تلقائياً لإرواء الرغبة. الوعي الواعي يتراجع — هذا هو "الوضع الآلي".</p></div>
+    <div class="cstep"><span class="cstep-n">٤</span><div class="cstep-title">المكافأة تُرسّخ الحلقة</div><p class="cstep-body">المكافأة تُطفئ الرغبة مؤقتاً وتُرسّخ الارتباط بين الإشارة والروتين. الحلقة تقوى في كل دورة.</p></div>
+    <div class="cstep"><span class="cstep-n">٥</span><div class="cstep-title">الحفظ العميق</div><p class="cstep-body">الحلقة تُحفظ في العقدة القاعدية كمسار عصبي. يبقى حتى بعد سنوات من التوقف ينتظر الإشارة.</p></div>
+  </div>
+  <div class="crave-example">
+    <div class="cex-card bad"><span class="cex-label">مثال سلبي — الرغبة المُدمِنة</span><p class="cex-body">شركة Febreze كانت تفشل حتى أضافت عطراً قوياً. الإشارة (الغرفة المنظّفة) + المكافأة (الرائحة) + التوقع = رغبة تدفع الاستخدام اليومي.</p></div>
+    <div class="cex-card good"><span class="cex-label">تطبيق إيجابي — بناء الرغبة الصحية</span><p class="cex-body">الرياضيون يبنون الرغبة في التمرين بجعل المكافأة (دش ساخن، موسيقى محبوبة) واضحة ومتوقعة حتى يرغب الدماغ في التمرين نفسه.</p></div>
+  </div>
+</section>
+
+<section class="sec prac-sec">
+  <p class="stag">التطبيق العملي</p>
+  <h2 class="sh2">تطبيقات مستخلصة من الكتاب</h2>
+  <p class="sintro">أدوات ملموسة لتحليل عاداتك وتغييرها بمنهج دوهيج</p>
+  <div class="prac-list">
+    <div class="prow"><div class="prow-icon">🔍</div><div><div class="prow-title">حلّل حلقة عادة سيئة واحدة</div><p class="prow-body">لعادة تريد تغييرها: اكتب الإشارة (متى؟ أين؟ ما شعورك؟)، الروتين، والمكافأة الحقيقية. هذا التحليل وحده يُضعف العادة ويُوجّه التغيير.</p><span class="prow-tip">💡 جرّب تغيير الروتين مع إبقاء الإشارة والمكافأة</span></div><span class="diff d-now">الآن</span></div>
+    <div class="prow"><div class="prow-icon">🎯</div><div><div class="prow-title">صمّم حلقة عادة جيدة</div><p class="prow-body">حدد إشارة واضحة (نفس الوقت والمكان)، روتيناً بسيطاً، ومكافأة فورية محددة. المكافأة المؤجلة لا تبني حلقة — يجب أن تأتي خلال ٦٠ ثانية.</p><span class="prow-tip">💡 ابدأ بأصغر إصدار ممكن من الروتين</span></div><span class="diff d-now">الآن</span></div>
+    <div class="prow"><div class="prow-icon">🏃</div><div><div class="prow-title">اختر عادتك الحجرية</div><p class="prow-body">من هذه القائمة اختر واحدة فقط: تمرين صباحي ١٥ دقيقة، تسجيل الطعام، تخطيط اليوم صباحاً، أو وقت نوم ثابت. ابدأ بها فقط لشهر كامل.</p><span class="prow-tip">💡 لا تُضف عادة ثانية قبل ترسيخ الأولى</span></div><span class="diff d-now">الآن</span></div>
+    <div class="prow"><div class="prow-icon">📊</div><div><div class="prow-title">استبدل روتيناً — لا تُلغِه</div><p class="prow-body">لكل عادة سيئة احتفظ بالإشارة والمكافأة وغيّر الروتين فقط. إذا كنت تأكل حلوى عند التوتر — جرّب المشي بدلاً من الأكل.</p><span class="prow-tip">💡 إذا فشل الاستبدال المكافأة الحقيقية ليست ما تعتقد</span></div><span class="diff d-now">الآن</span></div>
+    <div class="prow"><div class="prow-icon">💪</div><div><div class="prow-title">خطة الإجهاد المسبق</div><p class="prow-body">الإرادة تضعف في لحظات الإجهاد. اكتب مسبقاً: "إذا حدث X سأفعل Y". التخطيط المسبق يُقلل استهلاك الإرادة في اللحظة الحرجة.</p><span class="prow-tip">💡 الجيش الأمريكي يُدرّب جنوده على هذا المبدأ</span></div><span class="diff d-soon">قريباً</span></div>
+    <div class="prow"><div class="prow-icon">🤝</div><div><div class="prow-title">استخدم المجتمع الداعم</div><p class="prow-body">برامج AA تعمل بالإيمان والمجتمع لا بالإرادة. انضم لمجموعة تمارس ما تريد بناءه — الثقافة الاجتماعية تُقوّي أي عادة.</p><span class="prow-tip">💡 التغيير الدائم: إيمان بالقدرة + مجتمع داعم</span></div><span class="diff d-soon">قريباً</span></div>
+    <div class="prow"><div class="prow-icon">📅</div><div><div class="prow-title">أعد تصميم جدولك بحسب الإرادة</div><p class="prow-body">ضع أصعب مهماتك في أوقات أعلى إرادة (عادةً الصباح) والمهام الروتينية في أوقات الإرهاق. الإرادة تتجدد بالنوم.</p><span class="prow-tip">💡 أوباما وزوكربيرج يُقللان قرارات الملبس والطعام عمداً</span></div><span class="diff d-soon">قريباً</span></div>
+    <div class="prow"><div class="prow-icon">🌱</div><div><div class="prow-title">اغتنم لحظة التغيير الكبير</div><p class="prow-body">الانتقال لوظيفة جديدة أو مدينة جديدة يكسر الإشارات القديمة ويُفتح نافذة التغيير. إذا كنت في أزمة أو تغيير كبير الآن — هذا أفضل وقت لزراعة عادات جديدة.</p><span class="prow-tip">💡 نافذة التغيير محدودة — استثمرها فور انفتاحها</span></div><span class="diff d-deep">استراتيجي</span></div>
+  </div>
+</section>
+
+<footer>
+  <strong>قوة العادات — The Power of Habit</strong> — تشارلز دوهيج · ٢٠١٢<br>
+  <span style="margin-top:.5rem;display:block;">ملخص تعليمي · جميع الأفكار منسوبة لأصحابها الأصليين</span>
+</footer>
+
+</body>
+</html>

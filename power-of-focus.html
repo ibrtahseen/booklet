@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قوة التركيز</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap');
+
+  :root {
+    --f:'Cairo',sans-serif;
+    --ink:#0f0f0f; --paper:#fdfaf4; --amber:#c8860a; --amber-light:#f5d78e; --amber-pale:#fef8ea;
+    --rust:#8b3a0f; --sage:#4a5e4a; --muted:#8a806f; --rule:#e0d8cc;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  body{font-family:'Tajawal',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7}
+
+  .hero{min-height:100vh;display:grid;grid-template-rows:1fr auto;padding:0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,#1a1200 0%,#0f0f0f 60%)}
+
+  .focus-rings{position:absolute;left:-10%;top:50%;transform:translateY(-50%);width:80vmin;height:80vmin;pointer-events:none}
+  .ring{position:absolute;border-radius:50%;border:1px solid;top:50%;left:50%;transform:translate(-50%,-50%);animation:pulse 4s ease-in-out infinite}
+  .ring:nth-child(1){width:10%;height:10%;border-color:var(--amber);background:var(--amber);animation-delay:0s}
+  .ring:nth-child(2){width:22%;height:22%;border-color:rgba(200,134,10,.5);animation-delay:.3s}
+  .ring:nth-child(3){width:38%;height:38%;border-color:rgba(200,134,10,.3);animation-delay:.6s}
+  .ring:nth-child(4){width:56%;height:56%;border-color:rgba(200,134,10,.15);animation-delay:.9s}
+  .ring:nth-child(5){width:76%;height:76%;border-color:rgba(200,134,10,.07);animation-delay:1.2s}
+  .ring:nth-child(6){width:100%;height:100%;border-color:rgba(200,134,10,.03);animation-delay:1.5s}
+
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+  .hero-content{position:relative;z-index:2;display:flex;align-items:center;justify-content:flex-end;padding:6rem 8% 4rem;gap:2rem}
+
+  .hero-text{max-width:520px;text-align:right}
+
+  .eyebrow{font-family:var(--f);font-size:.75rem;font-weight:600;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;margin-bottom:1.4rem}
+
+  .hero-title{font-family:var(--f);font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:1.05;margin-bottom:.5rem}
+
+  .hero-title .highlight{color:var(--amber)}
+
+  .hero-subtitle{font-size:clamp(1rem,2vw,1.3rem);color:rgba(247,244,238,.55);margin-bottom:2.5rem;font-weight:300}
+
+  .hero-authors{font-size:.85rem;color:rgba(247,244,238,.4)}
+  .hero-authors strong{color:var(--amber-light);font-weight:500}
+
+  .hero-footer{position:relative;z-index:2;padding:1.5rem 8%;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:3rem;flex-wrap:wrap}
+
+  .stat .num{font-family:var(--f);font-size:1.8rem;font-weight:700;color:var(--amber);display:block}
+  .stat .label{font-size:.75rem;color:rgba(247,244,238,.4);letter-spacing:.05em}
+
+  section{padding:5rem 8%}
+
+  .section-label{font-family:var(--f);font-size:.7rem;font-weight:700;letter-spacing:.2em;color:var(--amber);text-transform:uppercase;margin-bottom:1rem}
+
+  .section-title{font-family:var(--f);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;line-height:1.25;margin-bottom:1rem;color:var(--ink)}
+
+  .section-intro{color:var(--muted);font-size:1.05rem;max-width:560px;margin-bottom:3rem}
+
+  .ideas-section{background:var(--paper)}
+
+  .ideas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5px;background:var(--rule);border:1.5px solid var(--rule)}
+
+  .idea-card{background:var(--paper);padding:2.2rem;cursor:pointer;transition:background .2s;position:relative}
+  .idea-card:hover{background:var(--amber-pale)}
+
+  .idea-number{font-family:var(--f);font-size:3rem;font-weight:900;color:var(--amber-light);line-height:1;margin-bottom:.8rem;display:block}
+
+  .idea-title{font-family:var(--f);font-size:1.1rem;font-weight:700;margin-bottom:.7rem;color:var(--ink)}
+
+  .idea-body{font-size:.9rem;color:var(--muted);line-height:1.7}
+
+  .idea-tag{display:inline-block;margin-top:1.2rem;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber-light);padding:.2rem .6rem;border-radius:2px}
+
+  .habits-section{background:var(--ink);color:var(--paper)}
+  .habits-section .section-title{color:var(--paper)}
+  .habits-section .section-intro{color:rgba(247,244,238,.5)}
+
+  .habits-list{display:flex;flex-direction:column;gap:0}
+
+  .habit-row{display:grid;grid-template-columns:3rem 1fr auto;align-items:start;gap:1.5rem;padding:1.8rem 0;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer;transition:padding-right .2s}
+  .habit-row:hover{padding-right:.5rem}
+
+  .habit-index{font-family:var(--f);font-size:.8rem;font-weight:700;color:var(--amber);padding-top:.2rem}
+
+  .habit-name{font-family:var(--f);font-size:1.05rem;font-weight:700;margin-bottom:.35rem}
+
+  .habit-desc{font-size:.88rem;color:rgba(247,244,238,.45);line-height:1.6}
+
+  .habit-arrow{font-size:1.1rem;color:var(--amber);padding-top:.15rem;opacity:0;transition:opacity .2s}
+  .habit-row:hover .habit-arrow{opacity:1}
+
+  .practices-section{background:var(--amber-pale)}
+
+  .practices-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+
+  .practice-card{background:white;border:1.5px solid var(--rule);padding:1.8rem;border-radius:4px;transition:box-shadow .2s,transform .2s}
+  .practice-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.08);transform:translateY(-3px)}
+
+  .practice-icon{font-size:1.8rem;margin-bottom:1rem;display:block}
+
+  .practice-title{font-family:var(--f);font-size:1rem;font-weight:700;margin-bottom:.5rem;color:var(--rust)}
+
+  .practice-desc{font-size:.875rem;color:var(--muted);line-height:1.65}
+
+  .practice-tip{margin-top:1rem;padding:.8rem;background:var(--amber-pale);border-right:3px solid var(--amber);font-size:.8rem;color:var(--muted);border-radius:2px}
+
+  .quote-section{background:var(--rust);color:white;text-align:center;padding:6rem 8%}
+
+  .big-quote{font-family:var(--f);font-size:clamp(1.4rem,3.5vw,2.5rem);font-weight:700;line-height:1.4;max-width:700px;margin:0 auto 1.5rem}
+
+  .quote-source{font-size:.85rem;color:rgba(255,255,255,.5);letter-spacing:.08em}
+
+  footer{background:var(--ink);color:rgba(247,244,238,.3);text-align:center;padding:2.5rem 8%;font-size:.8rem}
+  footer strong{color:var(--amber)}
+
+  hr.divider{border:none;border-top:1.5px solid var(--rule);margin:3rem 0 2rem}
+
+  @media(max-width:640px){
+    .hero-content{padding:4rem 6% 2.5rem}
+    .hero-footer{padding:1.5rem 6%;gap:2rem}
+    section{padding:3.5rem 6%}
+    .focus-rings{left:-40%;width:100vmin;height:100vmin;opacity:.25}
+    .habit-row{grid-template-columns:2.5rem 1fr}
+    .habit-arrow{display:none}
+  }
+</style>
+</head>
+<body>
+<style>.__nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,28px);background:rgba(12,10,8,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(207,164,69,.2);gap:12px;}.__nb{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#efe7d4;font-weight:700;font-size:.85rem;flex-shrink:0;font-family:'Cairo','Tajawal',sans-serif;}.__ns{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#cfa445,#9c7420);display:grid;place-items:center;font-size:.88rem;font-weight:800;color:#1a1714;flex:none;}.__nm{font-size:.72rem;color:rgba(207,164,69,.62);letter-spacing:.08em;flex:1;text-align:center;font-family:monospace;}.__narr{display:flex;gap:8px;flex-shrink:0;}.__na{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:99px;border:1px solid rgba(207,164,69,.25);color:#cfa445;font-size:.75rem;font-weight:600;text-decoration:none;transition:.15s;line-height:1;font-family:'Cairo','Tajawal',sans-serif;}.__na:hover{background:rgba(207,164,69,.1);border-color:rgba(207,164,69,.5);}.__na.off{opacity:.2;cursor:default;pointer-events:none;}body{padding-top:58px;}@media(max-width:500px){.__nm{display:none}.__na .t{display:none}}</style>
+<nav class="__nav" dir="rtl"><a href="index.html" class="__nb"><span class="__ns">ك</span><span>كرّاسة الممارِس</span></a><span class="__nm">10 / 10</span><div class="__narr"><a class="__na" href="rich-dad-poor-dad.html"><span class="t">السابق</span></a><a class="__na off" href="#"><span class="t">التالي</span></a></div></nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="focus-rings">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="eyebrow">ملخص وتطبيق</p>
+      <h1 class="hero-title">
+        قوة<br><span class="highlight">التركيز</span>
+      </h1>
+      <p class="hero-subtitle">كيف تتحكم في انتباهك وتحقق أهدافك الكبرى</p>
+      <p class="hero-authors">
+        تأليف: <strong>جاك كانفيلد، مارك فيكتور هانسن، ليس هيوِت</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="hero-footer">
+    <div class="stat"><span class="num">10</span><span class="label">أفكار محورية</span></div>
+    <div class="stat"><span class="num">12</span><span class="label">تطبيقاً عملياً</span></div>
+    <div class="stat"><span class="num">66</span><span class="label">يوماً لبناء العادة</span></div>
+  </div>
+</section>
+
+<section class="ideas-section">
+  <p class="section-label">الأفكار الجوهرية</p>
+  <h2 class="section-title">أهم أفكار الكتاب</h2>
+  <p class="section-intro">عشر أفكار تُشكّل أساس منهج قوة التركيز</p>
+
+  <div class="ideas-grid">
+
+    <div class="idea-card">
+      <span class="idea-number">١</span>
+      <div class="idea-title">عاداتك تُحدد مستقبلك</div>
+      <p class="idea-body">نحن لا نتخذ قرارات في الغالب — نحن نتبع عاداتنا. العادات الصغيحة المتكررة يومياً هي التي تبني الإنجازات الكبيرة على المدى البعيد.</p>
+      <span class="idea-tag">أساس</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">٢</span>
+      <div class="idea-title">ركّز على أولوياتك الحقيقية</div>
+      <p class="idea-body">المشغول ليس بالضرورة منتجاً. حدد المهام الـ٢٠٪ التي تُنتج ٨٠٪ من نتائجك وضع عليها تركيزك الكامل.</p>
+      <span class="idea-tag">إنتاجية</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">٣</span>
+      <div class="idea-title">الاتساق يتفوق على الشدة</div>
+      <p class="idea-body">ساعة يومياً لمدة سنة تفوق عشر ساعات في يوم واحد ثم لا شيء. القوة في التراكم المستمر لا في الانفجارات المتقطعة.</p>
+      <span class="idea-tag">عادات</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">٤</span>
+      <div class="idea-title">طوّر علاقات داعمة</div>
+      <p class="idea-body">أنت متوسط أقرب خمسة أشخاص إليك. اختر محيطك بوعي؛ الأشخاص الملهمون يرفعون سقف تفكيرك وطموحك.</p>
+      <span class="idea-tag">علاقات</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">٥</span>
+      <div class="idea-title">اسأل أسئلة أفضل</div>
+      <p class="idea-body">جودة حياتك تتحدد بجودة الأسئلة التي تطرحها على نفسك. "لماذا أفشل دائماً؟" vs "ماذا أحتاج لأنجح؟" — سؤالان مختلفان يقودان لعالمين مختلفين.</p>
+      <span class="idea-tag">تفكير</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">٦</span>
+      <div class="idea-title">تصوّر نتائجك بوضوح</div>
+      <p class="idea-body">الدماغ يعمل نحو الصور الواضحة. رسم صورة تفصيلية لهدفك بالعقل يُفعّل الشبكة العصبية للانتباه ويجعلك تلاحظ الفرص التي كانت موجودة دائماً.</p>
+      <span class="idea-tag">رؤية</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">٧</span>
+      <div class="idea-title">تصرف رغم الخوف</div>
+      <p class="idea-body">الشجاعة ليست غياب الخوف، بل اتخاذ الإجراء مع وجوده. الناجحون يشعرون بالخوف تماماً كالآخرين، الفرق أنهم يتحركون على أي حال.</p>
+      <span class="idea-tag">شجاعة</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">٨</span>
+      <div class="idea-title">تعلّم من ردود الفعل</div>
+      <p class="idea-body">كل نتيجة — سواء أعجبتك أم لا — هي معلومة. الفاشل يُبرّر والناجح يتعلم. حوّل كل نتيجة سلبية إلى بيانات للتعديل.</p>
+      <span class="idea-tag">نمو</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">٩</span>
+      <div class="idea-title">قوة التوقف عن قول نعم</div>
+      <p class="idea-body">لكل "نعم" التزام يُقلص وقتك ومواردك للأهداف الحقيقية. تعلّم قول "لا" بثقة هو إحدى أقوى مهارات التركيز.</p>
+      <span class="idea-tag">حدود</span>
+    </div>
+
+    <div class="idea-card">
+      <span class="idea-number">١٠</span>
+      <div class="idea-title">خذ الخطوة التالية فقط</div>
+      <p class="idea-body">الأهداف الضخمة مُشلّة. الخطوة الوحيدة الوحيدة التالية ممكنة دائماً. حدد الفعل المحدد التالي وافعله الآن — الزخم يبني نفسه.</p>
+      <span class="idea-tag">عمل</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="habits-section">
+  <p class="section-label">منهج الكتاب</p>
+  <h2 class="section-title">العادات الـ١٢ للتركيز</h2>
+  <p class="section-intro">الإطار العملي الذي يقوم عليه الكتاب</p>
+
+  <div class="habits-list">
+    <div class="habit-row">
+      <span class="habit-index">٠١</span>
+      <div>
+        <div class="habit-name">اعرف ماذا تريد حقاً</div>
+        <div class="habit-desc">وضوح الأهداف شرط لكل تركيز حقيقي — بدون وجهة، أي طريق يأخذك إلى المجهول.</div>
+      </div>
+      <span class="habit-arrow">←</span>
+    </div>
+    <div class="habit-row">
+      <span class="habit-index">٠٢</span>
+      <div>
+        <div class="habit-name">كن متسقاً ومنضبطاً</div>
+        <div class="habit-desc">حدد أوقاتاً ثابتة لأعمالك المهمة وتعامل معها كمواعيد لا تُلغى.</div>
+      </div>
+      <span class="habit-arrow">←</span>
+    </div>
+    <div class="habit-row">
+      <span class="habit-index">٠٣</span>
+      <div>
+        <div class="habit-name">طوّر علاقات عميقة</div>
+        <div class="habit-desc">استثمر في علاقات ذات جودة عالية بدلاً من شبكة سطحية واسعة.</div>
+      </div>
+      <span class="habit-arrow">←</span>
+    </div>
+    <div class="habit-row">
+      <span class="habit-index">٠٤</span>
+      <div>
+        <div class="habit-name">استخدم قوة الإيمان بالنفس</div>
+        <div class="habit-desc">الثقة بالنفس مهارة تُبنى بالفعل المتراكم، وليست صفة فطرية.</div>
+      </div>
+      <span class="habit-arrow">←</span>
+    </div>
+    <div class="habit-row">
+      <span class="habit-index">٠٥</span>
+      <div>
+        <div class="habit-name">اطلب ما تريد بجرأة</div>
+        <div class="habit-desc">معظم الناس لا يحصلون على ما يريدون لأنهم لا يطلبونه. الطلب عادة وليس ضعفاً.</div>
+      </div>
+      <span class="habit-arrow">←</span>
+    </div>
+    <div class="habit-row">
+      <span class="habit-index">٠٦</span>
+      <div>
+        <div class="habit-name">تغلب على الخوف</div>
+        <div class="habit-desc">الإجراء يُقلص الخوف، والانتظار يُضخّمه. المفتاح هو التحرك أولاً.</div>
+      </div>
+      <span class="habit-arrow">←</span>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <p class="big-quote">"ما تفكر فيه باستمرار، وتتحدث عنه، وتتصرف بناءً عليه يصبح واقعك"</p>
+  <p class="quote-source">— من كتاب قوة التركيز</p>
+</section>
+
+<section class="practices-section">
+  <p class="section-label">التطبيق العملي</p>
+  <h2 class="section-title">تطبيقات يمكنك البدء بها اليوم</h2>
+  <p class="section-intro">أدوات ملموسة مستخلصة من الكتاب لتفعيل مبادئه في حياتك</p>
+
+  <div class="practices-grid">
+
+    <div class="practice-card">
+      <span class="practice-icon">📋</span>
+      <div class="practice-title">قائمة المهام الثلاث</div>
+      <p class="practice-desc">كل صباح حدد ثلاثة مهام فقط — إذا أنجزتها، يومك ناجح بغض النظر عن الباقي.</p>
+      <div class="practice-tip">💡 اكتبها ليلاً حتى تستيقظ وأنت تعرف اتجاهك</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">⏰</span>
+      <div class="practice-title">بلوك التركيز العميق</div>
+      <p class="practice-desc">خصص ٩٠ دقيقة يومياً للعمل الأهم بدون إشعارات أو انقطاع — هذا وقتك المحمي.</p>
+      <div class="practice-tip">💡 ابدأ بـ٢٥ دقيقة (تقنية بومودورو) إذا ٩٠ كثيرة عليك الآن</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">📓</span>
+      <div class="practice-title">مراجعة الأسبوع</div>
+      <p class="practice-desc">في نهاية كل أسبوع، خصص ٢٠ دقيقة: ما الذي أنجزته؟ ما الذي أعاقني؟ ما خطتي للأسبوع القادم؟</p>
+      <div class="practice-tip">💡 احتفظ بدفتر مخصص لهذه المراجعات وراجعها شهرياً</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">🎯</span>
+      <div class="practice-title">تحديد الهدف السنوي الواحد</div>
+      <p class="practice-desc">اختر هدفاً واحداً كبيراً هذا العام وابنِ كل خططك حوله. عشرة أهداف = صفر تركيز.</p>
+      <div class="practice-tip">💡 ضع صورة أو جملة تمثل هذا الهدف في مكان تراه يومياً</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">🚫</span>
+      <div class="practice-title">قائمة الـ"لا"</div>
+      <p class="practice-desc">أنشئ قائمة بالأشياء التي ستتوقف عن فعلها: قائمة التوقف أهم من قائمة المهام.</p>
+      <div class="practice-tip">💡 ابدأ بشيء واحد فقط تتوقف عنه هذا الشهر</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">🤝</span>
+      <div class="practice-title">شريك المساءلة</div>
+      <p class="practice-desc">جد شخصاً واحداً يشاركك التقدم أسبوعياً. المساءلة الاجتماعية تُضاعف الإنجاز.</p>
+      <div class="practice-tip">💡 ليس للنقد بل للتشجيع ومتابعة الالتزام</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">🌅</span>
+      <div class="practice-title">روتين الصباح المقصود</div>
+      <p class="practice-desc">أول ٦٠ دقيقة من يومك تُحدد جودة اليوم كله. اجعلها لصالحك: قراءة، تأمل، رياضة.</p>
+      <div class="practice-tip">💡 لا جوال ولا أخبار في أول ٣٠ دقيقة بعد الاستيقاظ</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">📊</span>
+      <div class="practice-title">مقياس التقدم الأسبوعي</div>
+      <p class="practice-desc">أعطِ نفسك تقييماً من ١٠ على مدى تقدمك نحو هدفك الرئيسي. الوعي بالواقع أول خطوة للتحسين.</p>
+      <div class="practice-tip">💡 سجّل الرقم في تطبيق ملاحظات وراقب التحسن بمرور الوقت</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">💭</span>
+      <div class="practice-title">تمرين الأسئلة القوية</div>
+      <p class="practice-desc">كل صباح اسأل نفسك: "ما الشيء الواحد الذي لو أنجزته اليوم سيُحدث أكبر أثر؟" ثم ابدأ به.</p>
+      <div class="practice-tip">💡 مستوحى من كتاب "الشيء الواحد" المكمّل لهذا المنهج</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">✍️</span>
+      <div class="practice-title">كتابة الأهداف يومياً</div>
+      <p class="practice-desc">اكتب أهدافك الكبرى يومياً كأنها تحققت. هذا يُبقيها حاضرة في عقلك الواعي واللاواعي.</p>
+      <div class="practice-tip">💡 ٥ دقائق فقط كل صباح — لكنها من أقوى التمارين في الكتاب</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">🔋</span>
+      <div class="practice-title">إدارة الطاقة لا الوقت</div>
+      <p class="practice-desc">خطط مهامك الأصعب في أوقات طاقتك القصوى، والروتينية في أوقات تراجع التركيز.</p>
+      <div class="practice-tip">💡 اعرف "نافذتك المثلى" — معظم الناس أصفاهم في الصباح</div>
+    </div>
+
+    <div class="practice-card">
+      <span class="practice-icon">🎉</span>
+      <div class="practice-title">احتفل بالتقدم الصغير</div>
+      <p class="practice-desc">الاحتفال بالمكاسب الصغيرة يُطلق الدوبامين ويُعزز العادة. لا تنتظر الإنجاز الكبير لتكافئ نفسك.</p>
+      <div class="practice-tip">💡 سجّل ثلاثة أشياء تقدمت فيها اليوم كل مساء</div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <strong>قوة التركيز</strong> — جاك كانفيلد، مارك فيكتور هانسن، ليس هيوِت<br>
+  <span style="margin-top:.5rem; display:block;">ملخص تعليمي · جميع الأفكار منسوبة لأصحابها الأصليين</span>
+</footer>
+
+</body>
+</html>

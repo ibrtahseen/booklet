@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flow — علم الانسياب</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:ital,wght@0,300;0,400;0,600;0,700;0,900;1,700&family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+  :root {
+    --abyss:    #0c1f25;
+    --deep:     #122838;
+    --ocean:    #1a4560;
+    --teal:     #0e6e85;
+    --cyan:     #22c5e0;
+    --cyan-dim: rgba(34,197,224,.18);
+    --cyan-pale:#e6f9fc;
+    --mist:     #f5fafb;
+    --cream:    #fdf9f2;
+    --ink:      #0d1f25;
+    --mid:      #2d5060;
+    --muted:    #8ab5c2;
+    --rule:     #d4ecf0;
+
+    --warn:     #e07c22;   /* anxiety zone */
+    --ease:     #7dbf7a;   /* boredom zone */
+  }
+
+  *  { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Tajawal',sans-serif; background:var(--mist); color:var(--ink); line-height:1.7; overflow-x:hidden; }
+
+  /* ══════════════════════════════
+     HERO
+  ══════════════════════════════ */
+  .hero {
+    min-height:100vh;
+    background:var(--abyss);
+    color:#e8f4f7;
+    display:grid;
+    grid-template-rows:1fr auto;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* SIGNATURE: animated ripple canvas */
+  #ripple-canvas {
+    position:absolute;
+    inset:0;
+    width:100%; height:100%;
+    opacity:.55;
+    pointer-events:none;
+  }
+
+  .hero-inner {
+    position:relative; z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    padding:6rem 8% 3rem;
+  }
+
+  .hero-text { max-width:520px; text-align:right; }
+
+  .h-eyebrow {
+    font-family:'Cairo',sans-serif;
+    font-size:.68rem; font-weight:700;
+    letter-spacing:.25em; text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:1.5rem;
+  }
+
+  .h-title {
+    font-family:'Cairo',sans-serif;
+    font-weight:900;
+    font-size:clamp(3rem,9vw,7rem);
+    line-height:.95;
+    margin-bottom:1rem;
+    /* The aesthetic risk: the word Flow rendered with a liquid gradient */
+    background: linear-gradient(135deg, #e8f4f7 30%, var(--cyan) 70%, #85e3f0 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+
+  .h-title-ar {
+    font-family:'Cairo',sans-serif;
+    font-size:clamp(1rem,2.5vw,1.5rem);
+    font-weight:600;
+    color:rgba(232,244,247,.45);
+    margin-bottom:.6rem;
+    -webkit-text-fill-color:rgba(232,244,247,.45);
+    background:none;
+  }
+
+  .h-desc {
+    font-size:clamp(.92rem,1.8vw,1.15rem);
+    color:rgba(232,244,247,.4);
+    font-weight:300;
+    margin-bottom:2.5rem;
+    max-width:430px;
+  }
+
+  .h-author {
+    font-size:.82rem;
+    color:rgba(232,244,247,.25);
+  }
+  .h-author strong { color:var(--cyan); font-weight:500; }
+
+  .hero-bar {
+    position:relative; z-index:2;
+    display:flex; gap:3.5rem; flex-wrap:wrap;
+    padding:1.8rem 8%;
+    border-top:1px solid rgba(34,197,224,.1);
+  }
+  .hst .n {
+    font-family:'Cairo',sans-serif;
+    font-size:1.8rem; font-weight:800;
+    color:var(--cyan); display:block;
+  }
+  .hst .l { font-size:.68rem; color:rgba(232,244,247,.28); letter-spacing:.06em; }
+
+  /* ══════════════════════════════
+     SHARED
+  ══════════════════════════════ */
+  .sec { padding:5.5rem 8%; }
+
+  .stag {
+    font-family:'Cairo',sans-serif;
+    font-size:.67rem; font-weight:700;
+    letter-spacing:.22em; text-transform:uppercase;
+    color:var(--teal);
+    margin-bottom:.8rem;
+  }
+  .sh2 {
+    font-family:'Cairo',sans-serif;
+    font-size:clamp(1.6rem,3.5vw,2.4rem);
+    font-weight:800; line-height:1.2;
+    margin-bottom:.8rem;
+  }
+  .sintro {
+    color:var(--muted);
+    font-size:1rem; max-width:560px;
+    margin-bottom:3rem;
+  }
+
+  /* ══════════════════════════════
+     WHAT IS FLOW
+  ══════════════════════════════ */
+  .what-sec { background:var(--cream); }
+
+  .what-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.5rem;
+    max-width:820px;
+    margin-bottom:2.5rem;
+  }
+
+  .wcard {
+    padding:2rem;
+    border-radius:6px;
+    border:1.5px solid var(--rule);
+    background:white;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .wcard:hover { border-color:var(--cyan); box-shadow:0 4px 24px rgba(14,110,133,.1); }
+
+  .wcard-icon { font-size:1.7rem; margin-bottom:.9rem; display:block; }
+  .wcard-title {
+    font-family:'Cairo',sans-serif;
+    font-size:.98rem; font-weight:700;
+    color:var(--teal); margin-bottom:.5rem;
+  }
+  .wcard-body { font-size:.875rem; color:var(--muted); line-height:1.7; }
+
+  /* ══════════════════════════════
+     THE CHANNEL — Interactive SVG
+  ══════════════════════════════ */
+  .channel-sec { background:var(--deep); color:#e8f4f7; }
+  .channel-sec .stag { color:var(--cyan); }
+  .channel-sec .sh2  { color:#e8f4f7; }
+  .channel-sec .sintro { color:rgba(232,244,247,.45); }
+
+  .channel-wrap {
+    display:grid;
+    grid-template-columns:1fr 380px;
+    gap:3rem;
+    align-items:start;
+    max-width:900px;
+  }
+
+  #flow-chart {
+    width:100%;
+    aspect-ratio:1;
+    cursor:crosshair;
+    border-radius:6px;
+    overflow:hidden;
+  }
+
+  .channel-legend {
+    display:flex; flex-direction:column; gap:1.2rem;
+  }
+
+  .leg-item {
+    display:grid; grid-template-columns:14px 1fr; gap:.8rem;
+    align-items:start;
+  }
+  .leg-dot {
+    width:14px; height:14px;
+    border-radius:50%;
+    margin-top:.3rem; flex-shrink:0;
+  }
+  .leg-title {
+    font-family:'Cairo',sans-serif;
+    font-size:.9rem; font-weight:700;
+    margin-bottom:.2rem;
+  }
+  .leg-body { font-size:.78rem; color:rgba(232,244,247,.45); line-height:1.6; }
+
+  .channel-tip {
+    margin-top:1.5rem;
+    padding:1rem 1.2rem;
+    background:rgba(34,197,224,.07);
+    border:1px solid rgba(34,197,224,.15);
+    border-radius:4px;
+    font-size:.8rem; color:rgba(232,244,247,.5);
+    text-align:center;
+  }
+
+  /* ══════════════════════════════
+     CONDITIONS
+  ══════════════════════════════ */
+  .cond-sec { background:var(--mist); }
+
+  .cond-list { display:flex; flex-direction:column; gap:0; max-width:780px; }
+
+  .crow {
+    display:grid; grid-template-columns:52px 1fr;
+    gap:1.5rem; padding:1.8rem 0;
+    border-bottom:1px solid var(--rule);
+    align-items:start;
+  }
+  .crow:first-child { border-top:1px solid var(--rule); }
+
+  .crow-num {
+    width:52px; height:52px;
+    border-radius:50%;
+    background:var(--cyan-dim);
+    border:1.5px solid rgba(34,197,224,.3);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cairo',sans-serif;
+    font-size:1rem; font-weight:800;
+    color:var(--cyan);
+    flex-shrink:0;
+    transition:background .2s, border-color .2s;
+  }
+  .crow:hover .crow-num { background:var(--cyan); color:var(--abyss); border-color:var(--cyan); }
+
+  .crow-title {
+    font-family:'Cairo',sans-serif;
+    font-size:1.05rem; font-weight:700;
+    margin-bottom:.4rem;
+  }
+  .crow-body { font-size:.875rem; color:var(--muted); line-height:1.7; }
+  .crow-eg {
+    display:inline-block; margin-top:.6rem;
+    font-size:.75rem; color:var(--teal);
+    background:var(--cyan-pale);
+    padding:.2rem .7rem; border-radius:20px;
+  }
+
+  /* ══════════════════════════════
+     IDEAS
+  ══════════════════════════════ */
+  .ideas-sec { background:white; }
+
+  .ideas-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:1.2rem;
+  }
+
+  .icard {
+    border:1.5px solid var(--rule);
+    padding:1.8rem;
+    border-radius:6px;
+    background:white;
+    transition:border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .icard:hover {
+    border-color:var(--cyan);
+    box-shadow:0 6px 28px rgba(14,110,133,.09);
+    transform:translateY(-3px);
+  }
+  .icard-icon { font-size:1.6rem; margin-bottom:.9rem; display:block; }
+  .icard-title {
+    font-family:'Cairo',sans-serif;
+    font-size:.98rem; font-weight:700;
+    color:var(--teal); margin-bottom:.5rem;
+  }
+  .icard-body { font-size:.86rem; color:var(--muted); line-height:1.65; }
+  .icard-pull {
+    margin-top:1rem;
+    padding:.7rem .9rem;
+    background:var(--cyan-pale);
+    border-right:3px solid var(--cyan);
+    font-size:.78rem; color:var(--mid);
+    border-radius:3px;
+  }
+
+  /* ══════════════════════════════
+     QUOTE
+  ══════════════════════════════ */
+  .quote-sec {
+    background:var(--ocean);
+    color:#e8f4f7;
+    text-align:center;
+    padding:6rem 8%;
+    position:relative; overflow:hidden;
+  }
+  .quote-sec::before {
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 100%, rgba(34,197,224,.12) 0%, transparent 60%);
+    pointer-events:none;
+  }
+  .big-q {
+    font-family:'Cairo',sans-serif;
+    font-size:clamp(1.3rem,3vw,2.2rem);
+    font-weight:700; line-height:1.5;
+    max-width:720px; margin:0 auto 1.2rem;
+    position:relative; z-index:1;
+  }
+  .q-src { font-size:.8rem; color:rgba(232,244,247,.35); letter-spacing:.08em; }
+
+  /* ══════════════════════════════
+     DOMAINS
+  ══════════════════════════════ */
+  .domains-sec { background:var(--cream); }
+
+  .domains-tabs {
+    display:flex; gap:.5rem; flex-wrap:wrap;
+    margin-bottom:2rem;
+  }
+  .dtab {
+    padding:.5rem 1.3rem;
+    border:1.5px solid var(--rule);
+    background:transparent;
+    color:var(--muted);
+    font-family:'Cairo',sans-serif; font-size:.82rem; font-weight:600;
+    border-radius:30px; cursor:pointer;
+    transition:all .2s;
+  }
+  .dtab.active,.dtab:hover {
+    border-color:var(--teal);
+    color:var(--teal);
+    background:var(--cyan-pale);
+  }
+
+  .domain-content { display:none; }
+  .domain-content.show { display:block; }
+
+  .domain-card {
+    background:white;
+    border:1.5px solid var(--rule);
+    border-radius:6px;
+    padding:2rem 2.5rem;
+    max-width:720px;
+  }
+
+  .domain-title {
+    font-family:'Cairo',sans-serif;
+    font-size:1.15rem; font-weight:800;
+    color:var(--teal); margin-bottom:1.2rem;
+    display:flex; align-items:center; gap:.7rem;
+  }
+
+  .domain-steps { list-style:none; display:flex; flex-direction:column; gap:.8rem; }
+  .domain-steps li {
+    display:grid; grid-template-columns:1.8rem 1fr;
+    gap:.8rem; font-size:.88rem; color:var(--mid); line-height:1.6;
+  }
+  .dsn {
+    width:1.8rem; height:1.8rem;
+    border-radius:50%; background:var(--cyan-pale);
+    border:1.5px solid rgba(14,110,133,.25);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cairo',sans-serif; font-size:.72rem; font-weight:800;
+    color:var(--teal); flex-shrink:0; margin-top:.1rem;
+  }
+  .domain-note {
+    margin-top:1.5rem;
+    padding:1rem;
+    background:var(--cyan-pale);
+    border-right:3px solid var(--teal);
+    font-size:.82rem; color:var(--muted);
+    border-radius:3px;
+  }
+
+  /* ══════════════════════════════
+     PRACTICES
+  ══════════════════════════════ */
+  .prac-sec { background:var(--mist); }
+
+  .prac-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+    gap:1.2rem;
+  }
+
+  .pcard {
+    background:white;
+    border:1.5px solid var(--rule);
+    border-radius:6px; padding:1.8rem;
+    transition:border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .pcard:hover {
+    border-color:var(--teal);
+    box-shadow:0 6px 24px rgba(14,110,133,.08);
+    transform:translateY(-3px);
+  }
+  .pcard-icon { font-size:1.7rem; margin-bottom:.9rem; display:block; }
+  .pcard-title {
+    font-family:'Cairo',sans-serif;
+    font-size:.98rem; font-weight:700;
+    color:var(--teal); margin-bottom:.5rem;
+  }
+  .pcard-body { font-size:.86rem; color:var(--muted); line-height:1.65; }
+  .pcard-tip {
+    margin-top:1rem; padding:.7rem .9rem;
+    background:var(--cyan-pale);
+    border-right:3px solid rgba(14,110,133,.35);
+    font-size:.78rem; color:var(--mid); border-radius:3px;
+  }
+
+  /* ══════════════════════════════
+     FOOTER
+  ══════════════════════════════ */
+  footer {
+    background:var(--abyss);
+    color:rgba(232,244,247,.2);
+    text-align:center; padding:2.5rem 8%;
+    font-size:.78rem;
+  }
+  footer strong { color:var(--cyan); }
+
+  /* ══════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════ */
+  @media(max-width:700px){
+    .hero-inner { padding:4rem 6% 2.5rem; }
+    .hero-bar   { padding:1.5rem 6%; gap:2rem; }
+    .sec        { padding:3.5rem 6%; }
+    .what-grid  { grid-template-columns:1fr; }
+    .channel-wrap { grid-template-columns:1fr; }
+    .channel-legend { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  }
+</style>
+</head>
+<body>
+<style>.__nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,28px);background:rgba(12,10,8,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(207,164,69,.2);gap:12px;}.__nb{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#efe7d4;font-weight:700;font-size:.85rem;flex-shrink:0;font-family:'Cairo','Tajawal',sans-serif;}.__ns{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#cfa445,#9c7420);display:grid;place-items:center;font-size:.88rem;font-weight:800;color:#1a1714;flex:none;}.__nm{font-size:.72rem;color:rgba(207,164,69,.62);letter-spacing:.08em;flex:1;text-align:center;font-family:monospace;}.__narr{display:flex;gap:8px;flex-shrink:0;}.__na{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:99px;border:1px solid rgba(207,164,69,.25);color:#cfa445;font-size:.75rem;font-weight:600;text-decoration:none;transition:.15s;line-height:1;font-family:'Cairo','Tajawal',sans-serif;}.__na:hover{background:rgba(207,164,69,.1);border-color:rgba(207,164,69,.5);}.__na.off{opacity:.2;cursor:default;pointer-events:none;}body{padding-top:58px;}@media(max-width:500px){.__nm{display:none}.__na .t{display:none}}</style>
+<nav class="__nav" dir="rtl"><a href="index.html" class="__nb"><span class="__ns">ك</span><span>كرّاسة الممارِس</span></a><span class="__nm">06 / 10</span><div class="__narr"><a class="__na" href="power-of-habit-v2.html"><span class="t">السابق</span></a><a class="__na" href="deep-work.html"><span class="t">التالي</span></a></div></nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <canvas id="ripple-canvas"></canvas>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="h-eyebrow">علم النفس الإيجابي · ملخص وتطبيق</p>
+      <div class="h-title-ar">الانسياب</div>
+      <h1 class="h-title">Flow</h1>
+      <p class="h-desc">علم التجربة المثلى — كيف تصل إلى حالة الانغماس الكامل التي يصفها الناجحون بأنها ذروة الحياة</p>
+      <p class="h-author">تأليف: <strong>ميهالي تشيكسنتميهالي</strong></p>
+    </div>
+  </div>
+
+  <div class="hero-bar">
+    <div class="hst"><span class="n">٨</span><span class="l">شروط حالة الانسياب</span></div>
+    <div class="hst"><span class="n">٣٠+</span><span class="l">سنة من البحث العلمي</span></div>
+    <div class="hst"><span class="n">١٠</span><span class="l">تطبيقات عملية</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════ WHAT IS FLOW ═══════════════ -->
+<section class="what-sec sec">
+  <p class="stag">تعريف الانسياب</p>
+  <h2 class="sh2">ما هي حالة الانسياب؟</h2>
+  <p class="sintro">الانسياب هو الحالة التي يصفها الناس بأنهم "في المنطقة" — الوقت يطير، النفس تختفي، والتركيز مطلق</p>
+
+  <div class="what-grid">
+    <div class="wcard">
+      <span class="wcard-icon">🌊</span>
+      <div class="wcard-title">التعريف العلمي</div>
+      <p class="wcard-body">حالة من التركيز الكامل حيث يُوظَّف الوعي بكامله في نشاط ما. لا مجال لأفكار شاردة أو قلق — العمل والوعي يصبحان شيئاً واحداً.</p>
+    </div>
+    <div class="wcard">
+      <span class="wcard-icon">⏱️</span>
+      <div class="wcard-title">تشوّه الزمن</div>
+      <p class="wcard-body">الساعات تمر كأنها دقائق. الزمن الموضوعي ينفصل عن الزمن المُعاش. هذا من أكثر الأعراض المُبلَّغ عنها في تجارب الانسياب.</p>
+    </div>
+    <div class="wcard">
+      <span class="wcard-icon">🧘</span>
+      <div class="wcard-title">غياب الأنا</div>
+      <p class="wcard-body">الشعور بـ"أنا" يتلاشى مؤقتاً. لا تفكر في نفسك ولا في كيف تبدو للآخرين — أنت فقط تفعل. وبعد الانتهاء يعود هذا الشعور بشكل أقوى.</p>
+    </div>
+    <div class="wcard">
+      <span class="wcard-icon">🎯</span>
+      <div class="wcard-title">الجائزة الذاتية</div>
+      <p class="wcard-body">النشاط يصبح غاية في ذاته لا وسيلة لشيء آخر. تفعله لأن الفعل نفسه ممتع — لا لمال ولا لشهرة ولا لرضا أحد.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FLOW CHANNEL ═══════════════ -->
+<section class="channel-sec sec">
+  <p class="stag">النموذج الأساسي للكتاب</p>
+  <h2 class="sh2">قناة الانسياب</h2>
+  <p class="sintro">الانسياب يقع في المنطقة الدقيقة بين التحدي والمهارة — اضغط على الرسم لاكتشاف موقعك</p>
+
+  <div class="channel-wrap">
+    <svg id="flow-chart" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background -->
+      <rect width="400" height="400" fill="#071820"/>
+
+      <!-- Anxiety zone (top-left: high challenge, low skill) -->
+      <polygon points="50,50 310,50 50,310" fill="rgba(224,124,34,.18)"/>
+
+      <!-- Boredom zone (bottom-right: low challenge, high skill) -->
+      <polygon points="90,350 350,90 350,350" fill="rgba(125,191,122,.18)"/>
+
+      <!-- FLOW channel band -->
+      <polygon points="50,260 140,50 310,50 350,90 350,200 260,350 90,350" fill="rgba(34,197,224,.13)"/>
+      <!-- Flow band stroke -->
+      <line x1="50" y1="310" x2="310" y2="50" stroke="rgba(34,197,224,.5)" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <line x1="90" y1="350" x2="350" y2="90" stroke="rgba(34,197,224,.3)" stroke-width="1" stroke-dasharray="4,6"/>
+
+      <!-- Axes -->
+      <line x1="50" y1="50" x2="50" y2="370" stroke="rgba(232,244,247,.2)" stroke-width="1.5"/>
+      <line x1="50" y1="370" x2="370" y2="370" stroke="rgba(232,244,247,.2)" stroke-width="1.5"/>
+
+      <!-- Axis labels -->
+      <text x="200" y="395" fill="rgba(232,244,247,.4)" font-size="13" text-anchor="middle" font-family="Cairo,sans-serif">المهارة ←</text>
+      <text x="20" y="210" fill="rgba(232,244,247,.4)" font-size="13" text-anchor="middle" font-family="Cairo,sans-serif" transform="rotate(-90,20,210)">← التحدي</text>
+
+      <!-- Zone labels -->
+      <text x="110" y="130" fill="rgba(224,124,34,.8)" font-size="12" text-anchor="middle" font-family="Cairo,sans-serif" font-weight="700">قلق</text>
+      <text x="110" y="148" fill="rgba(224,124,34,.6)" font-size="10" text-anchor="middle" font-family="Cairo,sans-serif">التحدي أكبر من مهارتك</text>
+
+      <text x="300" y="300" fill="rgba(125,191,122,.8)" font-size="12" text-anchor="middle" font-family="Cairo,sans-serif" font-weight="700">ملل</text>
+      <text x="300" y="318" fill="rgba(125,191,122,.6)" font-size="10" text-anchor="middle" font-family="Cairo,sans-serif">مهارتك أكبر من التحدي</text>
+
+      <!-- Flow label -->
+      <text x="222" y="188" fill="rgba(34,197,224,.95)" font-size="15" text-anchor="middle" font-family="Cairo,sans-serif" font-weight="900">FLOW</text>
+      <text x="222" y="207" fill="rgba(34,197,224,.6)" font-size="10" text-anchor="middle" font-family="Cairo,sans-serif">الانسياب</text>
+
+      <!-- Interactive dot -->
+      <circle id="chart-dot" cx="200" cy="210" r="8" fill="var(--cyan)" opacity="0.9">
+        <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle id="chart-dot-outer" cx="200" cy="210" r="14" fill="none" stroke="rgba(34,197,224,.3)" stroke-width="1.5">
+        <animate attributeName="r" values="14;18;14" dur="2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Invisible clickable overlay -->
+      <rect id="chart-overlay" x="50" y="50" width="320" height="320" fill="transparent" style="cursor:crosshair"/>
+    </svg>
+
+    <div>
+      <div class="channel-legend">
+        <div class="leg-item">
+          <div class="leg-dot" style="background:var(--cyan)"></div>
+          <div>
+            <div class="leg-title" style="color:#e8f4f7">منطقة الانسياب</div>
+            <p class="leg-body">التحدي يتناسب مع مهارتك تماماً. لا سهولة مملّة ولا صعوبة مُحبِطة.</p>
+          </div>
+        </div>
+        <div class="leg-item">
+          <div class="leg-dot" style="background:var(--warn)"></div>
+          <div>
+            <div class="leg-title" style="color:#e8f4f7">منطقة القلق</div>
+            <p class="leg-body">التحدي يتجاوز مهارتك. الشعور بالتوتر والخوف من الفشل يُسيطران.</p>
+          </div>
+        </div>
+        <div class="leg-item">
+          <div class="leg-dot" style="background:var(--ease)"></div>
+          <div>
+            <div class="leg-title" style="color:#e8f4f7">منطقة الملل</div>
+            <p class="leg-body">مهارتك تتجاوز التحدي كثيراً. اللامبالاة والتشتت يظهران.</p>
+          </div>
+        </div>
+      </div>
+      <div class="channel-tip" id="chart-tip">اضغط على أي نقطة في الرسم لاكتشاف حالتك</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONDITIONS ═══════════════ -->
+<section class="cond-sec sec">
+  <p class="stag">شروط الانسياب</p>
+  <h2 class="sh2">الشروط الثمانية لحالة الانسياب</h2>
+  <p class="sintro">حدّد تشيكسنتميهالي ثمانية شروط تُصاحب حالة الانسياب عادةً. كلما اكتملت أكثر، عمقت الحالة</p>
+
+  <div class="cond-list">
+    <div class="crow">
+      <div class="crow-num">١</div>
+      <div>
+        <div class="crow-title">التوازن بين التحدي والمهارة</div>
+        <p class="crow-body">المهمة صعبة بما يكفي لتستوعب كل انتباهك، وسهلة بما يكفي لتشعر بالتقدم. هذا هو قلب النموذج — "قناة الانسياب".</p>
+        <span class="crow-eg">مثال: مهمة برمجية في حافة قدراتك التقنية</span>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="crow-num">٢</div>
+      <div>
+        <div class="crow-title">دمج الفعل والوعي</div>
+        <p class="crow-body">لا تُفكر في ما تفعل — أنت تفعله فحسب. الفجوة بين الفاعل والفعل تختفي. العازف الجيد لا يفكر في أصابعه.</p>
+        <span class="crow-eg">مثال: الرسم المنهمك أو قيادة الدراجة على طريق مألوف</span>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="crow-num">٣</div>
+      <div>
+        <div class="crow-title">وضوح الأهداف</div>
+        <p class="crow-body">تعرف بالضبط ما الذي تحاول تحقيقه. الغموض يُشتت — الوضوح يُركّز. الرياضي يعرف أنه يريد تسجيل هدف، لا مجرد "الفوز بطريقة ما".</p>
+        <span class="crow-eg">مثال: كتابة فصل واحد محدد لا "الكتابة عموماً"</span>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="crow-num">٤</div>
+      <div>
+        <div class="crow-title">التغذية الراجعة الفورية</div>
+        <p class="crow-body">تعرف فوراً إذا كنت تتقدم أو لا. الغيتاريست يسمع الصوت. الطاهي يتذوق. المبرمج يرى الكود يعمل. التغذية الراجعة الفورية تُبقيك مرتكزاً.</p>
+        <span class="crow-eg">مثال: كتابة مقال تُنشره فوراً وتُراقب التفاعلات</span>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="crow-num">٥</div>
+      <div>
+        <div class="crow-title">التركيز الكامل بلا شرود</div>
+        <p class="crow-body">لا مجال لأي فكرة خارجة عن المهمة. الهواجس، القلق، خطط الغداء — كلها تختفي. الانتباه يُصبح موارداً لا تُهدَر.</p>
+        <span class="crow-eg">مثال: لحظات الاستغراق في حل لغز معقد</span>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="crow-num">٦</div>
+      <div>
+        <div class="crow-title">الشعور بالسيطرة</div>
+        <p class="crow-body">تشعر أنك قادر على التعامل مع ما يأتي. ليس ادعاءً بالكمال — بل إحساس بأن مهارتك وأدواتك كافية للمهمة.</p>
+        <span class="crow-eg">مثال: المتسلق الخبير على صخرة يعرفها جيداً</span>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="crow-num">٧</div>
+      <div>
+        <div class="crow-title">غياب الوعي الذاتي</div>
+        <p class="crow-body">لا تُراقب نفسك ولا تقلق كيف تبدو. الخوف من الحكم يتلاشى. هذا لا يعني فقدان هويتك — بل تحريرها من الثقل الاجتماعي مؤقتاً.</p>
+        <span class="crow-eg">مثال: الراقص المنهمك الذي "ينسى" الجمهور</span>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="crow-num">٨</div>
+      <div>
+        <div class="crow-title">تشوّه الإحساس بالوقت</div>
+        <p class="crow-body">إما أن الساعات تمر كدقائق أو أن اللحظات تمتد. كلا الحالتين دليل على أن الانتباه مستوعب كلياً وأن الدماغ لم يعد يُراقب الساعة.</p>
+        <span class="crow-eg">مثال: "كيف مرت ثلاث ساعات وأنا لم أشعر؟"</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ IDEAS ═══════════════ -->
+<section class="ideas-sec sec">
+  <p class="stag">أفكار الكتاب</p>
+  <h2 class="sh2">أبرز المفاهيم والأفكار</h2>
+  <p class="sintro">الأفكار التي تجعل من Flow واحداً من أكثر كتب علم النفس تأثيراً في القرن العشرين</p>
+
+  <div class="ideas-grid">
+    <div class="icard">
+      <span class="icard-icon">🎭</span>
+      <div class="icard-title">الشخصية الأوتوتيلية</div>
+      <p class="icard-body">بعض الناس يجدون الانسياب في كل مكان — حتى في طابور الانتظار أو العمل الروتيني. هذه "الشخصية الأوتوتيلية" تحوّل كل تجربة إلى تحدٍّ مثمر.</p>
+      <div class="icard-pull">أوتوتيلي = "الهدف في الداخل" — النشاط يحمل مكافأته في ذاته</div>
+    </div>
+
+    <div class="icard">
+      <span class="icard-icon">🧠</span>
+      <div class="icard-title">الانتروبيا النفسية</div>
+      <p class="icard-body">حالتنا الافتراضية هي الفوضى الذهنية — أفكار عشوائية، قلق، ملل. الانسياب ينظّم هذه الفوضى بتوجيه الوعي كله نحو هدف واحد.</p>
+      <div class="icard-pull">الانسياب ضد الانتروبيا — وهذا ما يجعله يشعر بالإشباع العميق</div>
+    </div>
+
+    <div class="icard">
+      <span class="icard-icon">📈</span>
+      <div class="icard-title">رفع مستوى التحدي باستمرار</div>
+      <p class="icard-body">ما كان صعباً بالأمس يصبح سهلاً اليوم بعد التعلم. للحفاظ على الانسياب عليك رفع مستوى التحدي باستمرار أو توسيع تعريف المهمة.</p>
+      <div class="icard-pull">هذا هو سرّ النمو المستمر — الانسياب يُفرز رفع السقف</div>
+    </div>
+
+    <div class="icard">
+      <span class="icard-icon">🎸</span>
+      <div class="icard-title">الانسياب لا يقتصر على العمل</div>
+      <p class="icard-body">الكتاب يثبت بالبيانات أن الانسياب يحدث في الرياضة والفن والتعلم والمحادثة العميقة — بل وفي بعض أشكال العمل اليدوي والتأمل.</p>
+      <div class="icard-pull">العمّال المنهمكون أكثر سعادة في لحظة الانسياب من وقت فراغهم</div>
+    </div>
+
+    <div class="icard">
+      <span class="icard-icon">🚫</span>
+      <div class="icard-title">وقت الفراغ لا يُنتج الانسياب تلقائياً</div>
+      <p class="icard-body">المفارقة الكبرى في الكتاب: الفراغ والراحة لا يُنتجان السعادة بحد ذاتهما. التلفاز والتمرير السلبي يُفقدان الوعي دون أن يُنتجا إشباعاً.</p>
+      <div class="icard-pull">السعادة لا تأتي من الاسترخاء — بل من النشاط المُركّز المعنوي</div>
+    </div>
+
+    <div class="icard">
+      <span class="icard-icon">🌱</span>
+      <div class="icard-title">الانسياب والمعنى</div>
+      <p class="icard-body">حياة مليئة بلحظات الانسياب تصنع إحساساً بالمعنى والغرض. ليس لأن الانسياب يُجيب عن أسئلة الوجود — بل لأنه يجعلك تنسى أنك طرحتها.</p>
+      <div class="icard-pull">الانسياب هو الطريق العلمي من السعادة اللحظية إلى الحياة ذات المعنى</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ QUOTE ═══════════════ -->
+<section class="quote-sec">
+  <p class="big-q">"أفضل لحظات حياتنا لا تحدث حين نستلقي سلبيين مسترخين — بل حين نكون في حالة تمدد طوعي مقصود في سعي لشيء صعب وذي قيمة"</p>
+  <p class="q-src">— ميهالي تشيكسنتميهالي، Flow</p>
+</section>
+
+<!-- ═══════════════ DOMAINS ═══════════════ -->
+<section class="domains-sec sec">
+  <p class="stag">التطبيق بحسب المجال</p>
+  <h2 class="sh2">كيف تُحقق الانسياب في مجالك</h2>
+  <p class="sintro">كل مجال له بوابته الخاصة للانسياب — اختر مجالك لاستراتيجية مخصصة</p>
+
+  <div class="domains-tabs">
+    <button class="dtab active" onclick="showDomain('work')">العمل</button>
+    <button class="dtab" onclick="showDomain('sport')">الرياضة</button>
+    <button class="dtab" onclick="showDomain('art')">الفن والإبداع</button>
+    <button class="dtab" onclick="showDomain('learn')">التعلم</button>
+    <button class="dtab" onclick="showDomain('social')">العلاقات</button>
+  </div>
+
+  <div id="d-work" class="domain-content show">
+    <div class="domain-card">
+      <div class="domain-title">💼 الانسياب في العمل</div>
+      <ul class="domain-steps">
+        <li><span class="dsn">١</span>حدد المهمة الأصعب في قائمة عملك اليوم — ليست الأسهل — وابدأ بها.</li>
+        <li><span class="dsn">٢</span>ابحث عن الجانب الذي يتحدّاك في أي مهمة روتينية: سرعة، جودة، طريقة جديدة.</li>
+        <li><span class="dsn">٣</span>اضبط موقتاً لـ٩٠ دقيقة بلا انقطاعات — الهاتف، البريد، الإشعارات — كلها خارج.</li>
+        <li><span class="dsn">٤</span>حدد مؤشر نجاح واضح: "سأُنهي ١٠٠٠ كلمة" لا "سأكتب".</li>
+        <li><span class="dsn">٥</span>اصنع تغذية راجعة فورية: عدّاد كلمات، قائمة مهام مرئية، رسم بياني للتقدم.</li>
+      </ul>
+      <div class="domain-note">⚠️ الاجتماعات والبريد يُدمران الانسياب — خصص لهما وقتاً منفصلاً</div>
+    </div>
+  </div>
+
+  <div id="d-sport" class="domain-content">
+    <div class="domain-card">
+      <div class="domain-title">🏃 الانسياب في الرياضة</div>
+      <ul class="domain-steps">
+        <li><span class="dsn">١</span>ارفع سقف تحديك ببطء — ٥-١٠٪ فقط — كي تبقى في القناة دون الانزلاق للقلق.</li>
+        <li><span class="dsn">٢</span>تدرب على مهارة تقنية محددة في كل جلسة — لا تكتفِ بالممارسة العشوائية.</li>
+        <li><span class="dsn">٣</span>أزل المشتتات: الموسيقى قد تساعد أو تُعيق حسب نوع الرياضة — جرّب كليهما.</li>
+        <li><span class="dsn">٤</span>استخدم أهدافاً عملية فورية: "أُحسّن وقتي بـ٥ ثوانٍ" لا "أصبح أسرع".</li>
+        <li><span class="dsn">٥</span>اهتم بالتقنية لا النتيجة — التركيز على الجسم والحركة يُولّد الانسياب أسرع.</li>
+      </ul>
+      <div class="domain-note">💡 الرياضيون في الانسياب يصفونه بـ"being in the zone" — وهو بالضبط ما قصده الكتاب</div>
+    </div>
+  </div>
+
+  <div id="d-art" class="domain-content">
+    <div class="domain-card">
+      <div class="domain-title">🎨 الانسياب في الإبداع</div>
+      <ul class="domain-steps">
+        <li><span class="dsn">١</span>ابدأ بقيد واحد محدد — "أرسم وجهاً بلا رفع القلم" — القيود تُحرر الإبداع وتُركّزه.</li>
+        <li><span class="dsn">٢</span>خصص وقتاً مقدساً لا تفعل فيه إلا الإبداع — الإبداع يحتاج انتظاماً لا وحياً عشوائياً.</li>
+        <li><span class="dsn">٣</span>احتفظ بمشاريع في مستويات مهارية مختلفة — مشروع سهل لأيام التعب، وصعب لأيام الطاقة.</li>
+        <li><span class="dsn">٤</span>أزل ضغط الجمهور مؤقتاً — ابدأ مشاريع "للدرج فقط" لتتحرر من الخوف من الحكم.</li>
+        <li><span class="dsn">٥</span>تعلم تقنية جديدة كل شهر — التعلم يُحدث عدم توازن إيجابي يُولّد تحدياً جديداً.</li>
+      </ul>
+      <div class="domain-note">💡 الفنانون يصفون الانسياب بأنه "يدي تعمل وحدها" — علامة دمج الوعي والفعل</div>
+    </div>
+  </div>
+
+  <div id="d-learn" class="domain-content">
+    <div class="domain-card">
+      <div class="domain-title">📚 الانسياب في التعلم</div>
+      <ul class="domain-steps">
+        <li><span class="dsn">١</span>اقرأ في مستوى أعلى من مستواك بقليل — المادة السهلة جداً تُصيب بالملل.</li>
+        <li><span class="dsn">٢</span>حوّل كل درس إلى تحدٍّ: "هل أستطيع شرح هذا لطفل؟" أو "كيف أطبّقه غداً؟"</li>
+        <li><span class="dsn">٣</span>استخدم التعلم النشط: اكتب، ارسم، علّم — لا تكتفِ بالقراءة السلبية.</li>
+        <li><span class="dsn">٤</span>قيّم نفسك فوراً — الاختبار الذاتي هو التغذية الراجعة الأقوى في التعلم.</li>
+        <li><span class="dsn">٥</span>صل بما تتعلمه بما تعرفه — الوصلات تُعمّق الانخراط وتُولّد الانسياب.</li>
+      </ul>
+      <div class="domain-note">💡 الطلاب في حالة الانسياب يتعلمون ٢-٣ أضعاف ما يتعلمه الطلاب العاديون في نفس الوقت</div>
+    </div>
+  </div>
+
+  <div id="d-social" class="domain-content">
+    <div class="domain-card">
+      <div class="domain-title">🤝 الانسياب في العلاقات</div>
+      <ul class="domain-steps">
+        <li><span class="dsn">١</span>الاستماع الكامل — الهاتف بعيد، لا تفكر في ردك بينما يتحدث الآخر.</li>
+        <li><span class="dsn">٢</span>تحدّ نفسك باستكشاف الشخص الآخر: "ما الذي لا أعرفه عن هذا الإنسان بعد؟"</li>
+        <li><span class="dsn">٣</span>المحادثات العميقة (الوجود، المعنى، الإبداع) تُولّد الانسياب أكثر من الحديث السطحي.</li>
+        <li><span class="dsn">٤</span>مارس أنشطة مشتركة تتطلب تنسيقاً — الألعاب، الطبخ المعاً، الرياضة.</li>
+        <li><span class="dsn">٥</span>اقبل على الحوار الفكري حتى مع الاختلاف — الجدل المثمر هو انسياب اجتماعي.</li>
+      </ul>
+      <div class="domain-note">💡 أعمق علاقات الإنسان تُبنى في لحظات الانسياب المشترك</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRACTICES ═══════════════ -->
+<section class="prac-sec sec">
+  <p class="stag">التطبيق اليومي</p>
+  <h2 class="sh2">١٠ تطبيقات لاستدعاء الانسياب</h2>
+  <p class="sintro">أدوات ملموسة تُصمم حياتك لتُكثّر من لحظات الانسياب</p>
+
+  <div class="prac-grid">
+
+    <div class="pcard">
+      <span class="pcard-icon">📵</span>
+      <div class="pcard-title">تحديد وقت مقدس بلا انقطاع</div>
+      <p class="pcard-body">خصص ٩٠ دقيقة يومياً لمهمتك الأهم بلا إشعارات. الانسياب يحتاج وقتاً لـ"الإقلاع" — عادةً ١٥-٢٠ دقيقة من التركيز قبل أن تصل المنطقة.</p>
+      <div class="pcard-tip">💡 كلّ انقطاع يعيدك للصفر — ليس للمنتصف</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">🎯</span>
+      <div class="pcard-title">تحديد هدف المهمة بدقة</div>
+      <p class="pcard-body">قبل أي جلسة عمل اكتب جملة واحدة: ما الذي سيكون مكتملاً بنهاية هذه الجلسة؟ الوضوح يُطلق الانسياب — الغموض يُعيقه.</p>
+      <div class="pcard-tip">💡 "سأكتب الجزء الأول من التقرير" لا "سأعمل على التقرير"</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">📊</span>
+      <div class="pcard-title">اصنع مؤشر تقدم مرئي</div>
+      <p class="pcard-body">شريط تقدم، عداد كلمات، قائمة مهام، رسم بياني — أي شيء يُعطيك تغذية راجعة فورية عن مدى تقدمك. الدماغ في الانسياب يحتاج إشارات.</p>
+      <div class="pcard-tip">💡 كتابة عدد المهام المنجزة على ورقة مرئية تعمل بشكل مدهش</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">🎚️</span>
+      <div class="pcard-title">اضبط صعوبة المهمة يدوياً</div>
+      <p class="pcard-body">إذا شعرت بالقلق: قسّم المهمة أو تعلم مهارة فرعية ناقصة. إذا شعرت بالملل: أضف قيداً، سرّع الوتيرة، أو أضف تحدياً إضافياً.</p>
+      <div class="pcard-tip">💡 أنت تتحكم في موقعك على رسم قناة الانسياب</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">🔄</span>
+      <div class="pcard-title">مراجعة حالتك كل ٢٠ دقيقة</div>
+      <p class="pcard-body">اضبط منبهاً صامتاً كل ٢٠ دقيقة. عند الرنين اسأل: "هل أنا في الانسياب؟ قلق؟ ممل؟" ثم اضبط صعوبة المهمة وفق الإجابة.</p>
+      <div class="pcard-tip">💡 الوعي الميتا مؤقت — بعد السؤال عد فوراً للانغماس</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">🌍</span>
+      <div class="pcard-title">تصميم بيئة الانسياب</div>
+      <p class="pcard-body">مكانك المخصص للعمل العميق يصبح مُحفزاً بحد ذاته بالتكرار. مكتب نظيف، إضاءة مناسبة، درجة حرارة مثلى — الجسم يعرف "وقت الانسياب".</p>
+      <div class="pcard-tip">💡 بعض الناس يستخدمون موسيقى خاصة كمحفز لدخول الانسياب</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">📔</span>
+      <div class="pcard-title">يوميات الانسياب</div>
+      <p class="pcard-body">سجّل يومياً: متى شعرت بالانسياب اليوم؟ ما النشاط؟ كم استمر؟ ما الذي أتاحه؟ الأنماط ستظهر وتُوجّهك لتكثير هذه اللحظات.</p>
+      <div class="pcard-tip">💡 ثلاثة أسئلة في دفتر صغير — ٣ دقائق كل ليلة</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">🧩</span>
+      <div class="pcard-title">تحدّ نفسك في الروتين</div>
+      <p class="pcard-body">أي مهمة روتينية يمكن أن تصبح تحدياً: اجعل وقتها أقصر، أتقنها بجودة أعلى، جرب طريقة جديدة. الملل اختياري — التحدي قرار.</p>
+      <div class="pcard-tip">💡 تشيكسنتميهالي وجد عمالاً في مصنع يصنعون من خط التجميع لعبة ذهنية</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">📚</span>
+      <div class="pcard-title">استثمر في بناء مهاراتك</div>
+      <p class="pcard-body">الانسياب يحتاج مهارة حقيقية. المبتدئ المطلق يشعر بالقلق لا الانسياب. استثمر في تطوير مهاراتك لرفع "سقف قناتك".</p>
+      <div class="pcard-tip">💡 كل مهارة جديدة تفتح أبواباً جديدة للانسياب</div>
+    </div>
+
+    <div class="pcard">
+      <span class="pcard-icon">🛡️</span>
+      <div class="pcard-title">حمِ وقتك من الانتروبيا الرقمية</div>
+      <p class="pcard-body">التمرير السلبي في الشبكات الاجتماعية هو نقيض الانسياب — يستهلك الانتباه دون أن يُغذيه. ضع حدوداً واضحة بين الاستهلاك والإنتاج.</p>
+      <div class="pcard-tip">💡 بعد كل ٣٠ دقيقة تمرير سؤال: "ماذا صنعت؟"</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <strong>Flow: The Psychology of Optimal Experience</strong> — ميهالي تشيكسنتميهالي<br>
+  <span style="margin-top:.5rem;display:block;">ملخص تعليمي · جميع الأفكار منسوبة لأصحابها الأصليين</span>
+</footer>
+
+<script>
+/* ─── RIPPLE CANVAS ─── */
+(function() {
+  const canvas = document.getElementById('ripple-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, mouse = { x: 0.5, y: 0.5 };
+  const waves = [];
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Track mouse on hero only
+  document.querySelector('.hero').addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = (e.clientX - r.left) / r.width;
+    mouse.y = (e.clientY - r.top)  / r.height;
+  });
+
+  // Spawn waves periodically
+  let spawnTimer = 0;
+  function spawnWave(x, y) {
+    waves.push({ x: x * W, y: y * H, r: 0, maxR: Math.max(W, H) * .7, alpha: 0.35, speed: 1.4 });
+  }
+  spawnWave(0.3, 0.5);
+  spawnWave(0.7, 0.4);
+
+  function draw(ts) {
+    spawnTimer += 16;
+    if (spawnTimer > 2400) {
+      spawnWave(mouse.x + (Math.random()-.5)*.3, mouse.y + (Math.random()-.5)*.3);
+      spawnTimer = 0;
+    }
+
+    ctx.clearRect(0, 0, W, H);
+
+    for (let i = waves.length - 1; i >= 0; i--) {
+      const w = waves[i];
+      w.r     += w.speed;
+      w.alpha  = 0.35 * (1 - w.r / w.maxR);
+
+      if (w.alpha <= 0.001) { waves.splice(i, 1); continue; }
+
+      ctx.beginPath();
+      ctx.arc(w.x, w.y, w.r, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(34,197,224,${w.alpha})`;
+      ctx.lineWidth   = 1.2;
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ─── FLOW CHART INTERACTION ─── */
+(function() {
+  const overlay = document.getElementById('chart-overlay');
+  const dot     = document.getElementById('chart-dot');
+  const dotO    = document.getElementById('chart-dot-outer');
+  const tip     = document.getElementById('chart-tip');
+
+  const chartX0 = 50, chartY0 = 50, chartSize = 320;
+
+  overlay.addEventListener('click', function(e) {
+    const rect = overlay.closest('svg').getBoundingClientRect();
+    const svgW = rect.width, svgH = rect.height;
+    const scaleX = 400 / svgW, scaleY = 400 / svgH;
+
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top)  * scaleY;
+
+    if (mx < 50 || mx > 370 || my < 50 || my > 370) return;
+
+    dot.setAttribute('cx', mx);
+    dot.setAttribute('cy', my);
+    dotO.setAttribute('cx', mx);
+    dotO.setAttribute('cy', my);
+
+    // Normalise 0-1 (skill = x axis left→right, challenge = y axis top→bottom inverted)
+    const skill     = (mx - 50) / 320;       // 0=low, 1=high
+    const challenge = 1 - (my - 50) / 320;  // 0=low, 1=high
+    const diff      = challenge - skill;     // positive = anxiety zone
+
+    let msg;
+    if (Math.abs(diff) < 0.18) {
+      msg = '🌊 أنت في منطقة الانسياب! مهارتك وتحديك متوازنان — هذه هي البيئة المثلى. استمر وأزل كل انقطاع.';
+    } else if (diff > 0.18) {
+      msg = '😰 منطقة القلق — التحدي أكبر من مهارتك. الحل: قسّم المهمة، أو طوّر مهارة ناقصة قبل المتابعة.';
+    } else {
+      msg = '😐 منطقة الملل — مهارتك تتجاوز التحدي. الحل: ارفع سقف التحدي، أضف قيداً، أو سرّع الوتيرة.';
+    }
+
+    tip.textContent = msg;
+  });
+})();
+
+/* ─── DOMAIN TABS ─── */
+function showDomain(id) {
+  document.querySelectorAll('.domain-content').forEach(d => d.classList.remove('show'));
+  document.querySelectorAll('.dtab').forEach(b => b.classList.remove('active'));
+  document.getElementById('d-' + id).classList.add('show');
+  event.target.classList.add('active');
+}
+
+</script>
+</body>
+</html>

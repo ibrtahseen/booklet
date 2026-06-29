@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>العمل العميق — Deep Work</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap');
+:root{
+  --bg:#141720;--panel:#1a1e2e;--surface:#1f2438;--lift:#272e46;
+  --ink:#edf0fc;--muted:#7a82a6;--dim:#4a5272;--rule:rgba(255,255,255,.09);
+  --slate:#1e2640;
+  --blue:#3b82f6;--blue-l:#93c5fd;--blue-dim:rgba(59,130,246,.14);--blue-pale:#eff6ff;
+  --amber:#f59e0b;--amber-l:#fcd34d;--amber-dim:rgba(245,158,11,.14);
+  --green:#10b981;--green-dim:rgba(16,185,129,.12);
+  --red:#ef4444;--red-dim:rgba(239,68,68,.12);
+  --l-bg:#f4f5f8;--l-white:#ffffff;--l-ink:#0f1117;--l-mid:#2a2f40;--l-muted:#6b7280;--l-rule:#e5e7eb;
+  --f:'Cairo',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden}
+.hero{min-height:100vh;background:var(--bg);display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden}
+.beam,.beam-glow{position:absolute;top:0;bottom:0;pointer-events:none;animation:beamPulse 5s ease-in-out infinite}
+.beam{left:22%;width:1px;background:linear-gradient(to bottom,transparent,rgba(59,130,246,0) 10%,rgba(59,130,246,.6) 40%,rgba(147,197,253,.9) 50%,rgba(59,130,246,.6) 60%,rgba(59,130,246,0) 90%,transparent);filter:blur(1px)}
+.beam-glow{left:calc(22% - 40px);width:82px;background:linear-gradient(to bottom,transparent 15%,rgba(59,130,246,.04) 40%,rgba(59,130,246,.1) 50%,rgba(59,130,246,.04) 60%,transparent 85%)}
+@keyframes beamPulse{0%,100%{opacity:.7}50%{opacity:1}}
+.particles{position:absolute;inset:0;pointer-events:none}
+.particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(100,116,139,.35);animation:drift linear infinite}
+@keyframes drift{0%{transform:translate(0,0);opacity:.4}50%{opacity:.15}100%{transform:translate(var(--dx),var(--dy));opacity:.4}}
+.hero-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:flex-end;padding:6rem 8% 3rem}
+.hero-text{max-width:520px;text-align:right}
+.eyebrow{font-family:var(--f);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-l);margin-bottom:1.5rem}
+.hero-h1{font-family:var(--f);font-weight:900;font-size:clamp(2.8rem,8vw,6rem);line-height:1.02;margin-bottom:.5rem}
+.hero-h1 .en{display:block;font-size:36%;font-weight:300;color:rgba(232,234,242,.2);letter-spacing:.1em;margin-bottom:.3rem}
+.hero-h1 .deep{color:var(--blue-l)}
+.hero-desc{font-size:clamp(.92rem,1.8vw,1.15rem);color:rgba(232,234,242,.35);font-weight:300;margin-bottom:2.5rem;max-width:420px}
+.hero-author{font-size:.82rem;color:rgba(232,234,242,.2)}
+.hero-author strong{color:var(--blue-l);font-weight:500}
+.hero-bar{position:relative;z-index:2;display:flex;gap:3rem;flex-wrap:wrap;padding:1.8rem 8%;border-top:1px solid var(--rule)}
+.hst .n{font-family:var(--f);font-size:1.8rem;font-weight:800;color:var(--amber-l);display:block}
+.hst .l{font-size:.68rem;color:rgba(232,234,242,.22);letter-spacing:.05em}
+.sec{padding:5.5rem 8%}
+.dark{background:var(--panel)}.darker{background:var(--bg)}.light{background:var(--l-bg);color:var(--l-ink)}.white{background:var(--l-white);color:var(--l-ink)}
+.stag{font-family:var(--f);font-size:.67rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8rem}
+.dark .stag,.darker .stag{color:var(--blue-l)}
+.light .stag,.white .stag{color:var(--blue)}
+.sh2{font-family:var(--f);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:.8rem}
+.sintro{font-size:1rem;max-width:560px;margin-bottom:3rem}
+.dark .sintro,.darker .sintro{color:var(--muted)}
+.light .sintro,.white .sintro{color:var(--l-muted)}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:860px;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.cg-col{padding:2.5rem}
+.cg-col.shallow{background:var(--surface);border-left:1px solid var(--rule)}
+.cg-col.deep{background:var(--slate)}
+.cg-label{font-family:var(--f);font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;display:block}
+.cg-col.shallow .cg-label{color:var(--muted)}
+.cg-col.deep .cg-label{color:var(--blue-l)}
+.cg-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.cg-items{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.cg-items li{font-size:.875rem;line-height:1.6;display:flex;gap:.6rem}
+.cg-items li::before{flex-shrink:0;margin-top:.15rem}
+.cg-col.shallow .cg-items li{color:var(--muted)}
+.cg-col.shallow .cg-items li::before{content:'–';color:var(--dim)}
+.cg-col.deep .cg-items li{color:rgba(232,234,242,.7)}
+.cg-col.deep .cg-items li::before{content:'✦';color:var(--blue-l);font-size:.55rem;margin-top:.3rem}
+.equation-wrap{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;max-width:780px;margin-bottom:2rem}
+.eq-box{flex:1;min-width:160px;padding:1.8rem 1.5rem;border-radius:6px;text-align:center;border:1px solid}
+.eq-box.time{border-color:rgba(59,130,246,.3);background:var(--blue-dim)}
+.eq-box.intens{border-color:rgba(245,158,11,.3);background:var(--amber-dim)}
+.eq-box.result{border-color:rgba(16,185,129,.3);background:var(--green-dim)}
+.eq-sym{font-family:var(--f);font-size:1.8rem;font-weight:900;color:var(--dim);flex-shrink:0}
+.eq-label{font-family:var(--f);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;display:block}
+.eq-val{font-family:var(--f);font-size:1.5rem;font-weight:800;line-height:1.1;margin-bottom:.3rem}
+.eq-box.time .eq-label,.eq-box.time .eq-val{color:var(--blue-l)}
+.eq-box.intens .eq-label,.eq-box.intens .eq-val{color:var(--amber-l)}
+.eq-box.result .eq-label,.eq-box.result .eq-val{color:var(--green)}
+.eq-sub{font-size:.75rem;color:var(--muted);line-height:1.5}
+.eq-note{max-width:780px;padding:1rem 1.2rem;background:var(--blue-dim);border:1px solid rgba(59,130,246,.15);border-right:3px solid var(--blue-l);border-radius:4px;font-size:.83rem;color:rgba(232,234,242,.5);line-height:1.65}
+.eq-note strong{color:var(--blue-l)}
+.ideas-grid,.prac-grid{display:grid;gap:1.2rem}
+.ideas-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.prac-grid{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.icard,.pcard{border:1px solid var(--rule);border-radius:6px;padding:1.8rem;background:var(--surface);transition:border-color .2s,transform .2s}
+.icard:hover,.pcard:hover{transform:translateY(-3px)}
+.icard:hover{border-color:rgba(59,130,246,.4)}
+.pcard:hover{border-color:rgba(245,158,11,.4)}
+.icard-icon,.pcard-icon{margin-bottom:.9rem;display:block}
+.icard-icon{font-size:1.6rem}
+.pcard-icon{font-size:1.7rem}
+.icard-title,.pcard-title{font-family:var(--f);font-size:.98rem;font-weight:700;margin-bottom:.5rem}
+.icard-title{color:var(--blue-l)}
+.pcard-title{color:var(--amber-l)}
+.icard-body,.pcard-body{font-size:.86rem;color:var(--muted);line-height:1.65}
+.icard-pull,.pcard-tip{margin-top:1rem;padding:.7rem .9rem;font-size:.78rem;color:rgba(232,234,242,.45);border-radius:3px}
+.icard-pull{background:var(--blue-dim);border-right:3px solid rgba(59,130,246,.4)}
+.pcard-tip{background:var(--amber-dim);border-right:3px solid rgba(245,158,11,.4)}
+.phil-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.ptab{padding:.5rem 1.3rem;border:1px solid var(--l-rule);background:transparent;color:var(--l-muted);font-family:var(--f);font-size:.82rem;font-weight:600;border-radius:30px;cursor:pointer;transition:all .2s}
+.ptab.active,.ptab:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-pale)}
+.phil-content{display:none}
+.phil-content.show{display:block}
+.phil-card{background:var(--l-white);border:1.5px solid var(--l-rule);border-radius:8px;padding:2rem 2.5rem;max-width:740px}
+.phil-title{font-family:var(--f);font-size:1.15rem;font-weight:800;color:var(--blue);margin-bottom:.5rem;display:flex;align-items:center;gap:.7rem}
+.phil-who{font-family:var(--f);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--l-muted);margin-bottom:1rem;display:block}
+.phil-body{font-size:.9rem;color:var(--l-mid);line-height:1.75;margin-bottom:1rem}
+.phil-pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.pc-col-title{font-family:var(--f);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;display:block}
+.pc-col-title.pro{color:var(--green)}
+.pc-col-title.con{color:var(--amber)}
+.pc-list{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.pc-list li{font-size:.82rem;color:var(--l-muted);display:flex;gap:.5rem;line-height:1.55}
+.pc-list.pro li::before{content:'✓';color:var(--green);flex-shrink:0}
+.pc-list.con li::before{content:'○';color:var(--amber);flex-shrink:0}
+.phil-note{margin-top:1.2rem;padding:.9rem 1rem;border-radius:4px;background:var(--blue-pale);border-right:3px solid var(--blue);font-size:.8rem;color:var(--l-muted)}
+.quote-sec{background:var(--blue);color:white;text-align:center;padding:6rem 8%;position:relative;overflow:hidden}
+.quote-sec::before{content:'';position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:2px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.3),transparent);pointer-events:none}
+.big-q{font-family:var(--f);font-size:clamp(1.3rem,3vw,2.2rem);font-weight:700;line-height:1.5;max-width:720px;margin:0 auto 1.2rem;position:relative;z-index:1}
+.q-src{font-size:.8rem;color:rgba(255,255,255,.5);letter-spacing:.08em}
+.rituals-list{max-width:780px}
+.rrow{display:grid;grid-template-columns:52px 1fr;gap:1.5rem;padding:1.8rem 0;border-bottom:1px solid var(--l-rule);align-items:start}
+.rrow:first-child{border-top:1px solid var(--l-rule)}
+.rrow-num{width:52px;height:52px;border-radius:50%;background:var(--blue-pale);border:1.5px solid #bfdbfe;display:flex;align-items:center;justify-content:center;font-family:var(--f);font-size:1rem;font-weight:800;color:var(--blue);flex-shrink:0;transition:background .2s,border-color .2s}
+.rrow:hover .rrow-num{background:var(--blue);color:white;border-color:var(--blue)}
+.rrow-title{font-family:var(--f);font-size:1.05rem;font-weight:700;margin-bottom:.4rem;color:var(--l-ink)}
+.rrow-body{font-size:.875rem;color:var(--l-muted);line-height:1.7}
+.rrow-eg{display:inline-block;margin-top:.6rem;font-size:.72rem;color:var(--blue);background:var(--blue-pale);padding:.2rem .7rem;border-radius:20px}
+.diff-tag{display:inline-block;margin-top:.7rem;font-family:var(--f);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .6rem;border-radius:20px}
+.d-now{background:var(--green-dim);color:var(--green)}
+.d-soon{background:var(--amber-dim);color:var(--amber-l)}
+.d-deep{background:var(--blue-dim);color:var(--blue-l)}
+.shutdown-sec{background:var(--bg)}
+.shutdown-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0;max-width:900px;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.sstep{padding:2rem 1.5rem;border-left:1px solid var(--rule);background:var(--surface);transition:background .2s}
+.sstep:first-child{border-left:none}
+.sstep:hover{background:var(--lift)}
+.sstep-n{font-family:var(--f);font-size:2.5rem;font-weight:900;color:var(--dim);line-height:1;margin-bottom:.6rem;display:block}
+.sstep-title{font-family:var(--f);font-size:.9rem;font-weight:700;color:var(--blue-l);margin-bottom:.4rem}
+.sstep-body{font-size:.8rem;color:var(--muted);line-height:1.65}
+footer{background:var(--bg);color:rgba(232,234,242,.18);text-align:center;padding:2.5rem 8%;font-size:.78rem;border-top:1px solid var(--rule)}
+footer strong{color:var(--blue-l)}
+@media(max-width:660px){
+  .hero-inner{padding:4rem 6% 2rem}
+  .hero-bar{padding:1.5rem 6%;gap:2rem}
+  .sec{padding:3.5rem 6%}
+  .compare-grid{grid-template-columns:1fr}
+  .cg-col.shallow{border-left:none;border-top:1px solid var(--rule)}
+  .equation-wrap{flex-direction:column}
+  .eq-sym{transform:rotate(90deg)}
+  .phil-pros-cons{grid-template-columns:1fr}
+  .shutdown-steps{grid-template-columns:1fr}
+  .sstep{border-left:none;border-top:1px solid var(--rule)}
+  .sstep:first-child{border-top:none}
+}
+</style>
+</head>
+<body>
+<style>.__nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,28px);background:rgba(12,10,8,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(207,164,69,.2);gap:12px;}.__nb{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#efe7d4;font-weight:700;font-size:.85rem;flex-shrink:0;font-family:'Cairo','Tajawal',sans-serif;}.__ns{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#cfa445,#9c7420);display:grid;place-items:center;font-size:.88rem;font-weight:800;color:#1a1714;flex:none;}.__nm{font-size:.72rem;color:rgba(207,164,69,.62);letter-spacing:.08em;flex:1;text-align:center;font-family:monospace;}.__narr{display:flex;gap:8px;flex-shrink:0;}.__na{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:99px;border:1px solid rgba(207,164,69,.25);color:#cfa445;font-size:.75rem;font-weight:600;text-decoration:none;transition:.15s;line-height:1;font-family:'Cairo','Tajawal',sans-serif;}.__na:hover{background:rgba(207,164,69,.1);border-color:rgba(207,164,69,.5);}.__na.off{opacity:.2;cursor:default;pointer-events:none;}body{padding-top:58px;}@media(max-width:500px){.__nm{display:none}.__na .t{display:none}}</style>
+<nav class="__nav" dir="rtl"><a href="index.html" class="__nb"><span class="__ns">ك</span><span>كرّاسة الممارِس</span></a><span class="__nm">07 / 10</span><div class="__narr"><a class="__na" href="flow-psychology.html"><span class="t">السابق</span></a><a class="__na" href="psychology-of-money.html"><span class="t">التالي</span></a></div></nav>
+
+<div class="hero">
+  <div class="beam-glow"></div>
+  <div class="beam"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">ملخص وتطبيق · الإنتاجية العميقة</p>
+      <h1 class="hero-h1">
+        <span class="en">Deep Work</span>
+        <span class="deep">العمل</span><br>العميق
+      </h1>
+      <p class="hero-desc">قواعد النجاح المهني في عالم مشتّت — كيف تُتقن القدرة الأندر والأكثر قيمة في الاقتصاد المعرفي</p>
+      <p class="hero-author">تأليف: <strong>كال نيوبورت</strong></p>
+    </div>
+  </div>
+  <div class="hero-bar">
+    <div class="hst"><span class="n">٤</span><span class="l">فلسفات للعمل العميق</span></div>
+    <div class="hst"><span class="n">٩٠</span><span class="l">دقيقة: الجلسة المثلى</span></div>
+    <div class="hst"><span class="n">٤</span><span class="l">قواعد جوهرية</span></div>
+  </div>
+</div>
+
+<section class="sec dark">
+  <p class="stag">التعريف الأساسي</p>
+  <h2 class="sh2">عميق مقابل سطحي</h2>
+  <p class="sintro">الفرق ليس في الجهد — بل في نوع التركيز وما ينتجه</p>
+  <div class="compare-grid">
+    <div class="cg-col shallow">
+      <span class="cg-label">العمل السطحي — Shallow Work</span>
+      <span class="cg-icon">🌊</span>
+      <ul class="cg-items">
+        <li>مهام إدارية وتنسيقية لا تتطلب تركيزاً عميقاً</li>
+        <li>يمكن تنفيذها مع انقطاع مستمر</li>
+        <li>قيمة مُنتَجة منخفضة نسبياً</li>
+        <li>يمكن لأي شخص تعلمه بسرعة تنفيذه</li>
+        <li>الردود السريعة، الاجتماعات، إعادة التوجيه</li>
+        <li>يُشعرك بالانشغال دون تقدم حقيقي</li>
+        <li>يسهل تقليده آلياً أو تفويضه</li>
+      </ul>
+    </div>
+    <div class="cg-col deep">
+      <span class="cg-label">العمل العميق — Deep Work</span>
+      <span class="cg-icon">🔬</span>
+      <ul class="cg-items">
+        <li>أنشطة معرفية مُنجَزة في تركيز بلا انقطاع</li>
+        <li>تدفع قدراتك المعرفية لحدودها القصوى</li>
+        <li>تُنتج قيمة استثنائية وتُطوّر مهاراتك</li>
+        <li>يصعب تكراره — هو ميزتك التنافسية</li>
+        <li>الكتابة، البرمجة، التحليل، الإبداع</li>
+        <li>يشعرك بتقدم حقيقي وإنجاز عميق</li>
+        <li>يُكسبك مهارات لا يمكن الاستغناء عنها</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec darker">
+  <p class="stag">صيغة الإنتاجية</p>
+  <h2 class="sh2">معادلة العمل العميق</h2>
+  <p class="sintro">نيوبورت يُقدّم نظرية كمية للإنتاجية — ليست شعرية بل رياضية</p>
+  <div class="equation-wrap">
+    <div class="eq-box time">
+      <span class="eq-label">الوقت</span>
+      <div class="eq-val">ساعات التركيز</div>
+      <p class="eq-sub">وقت العمل الفعلي<br>بلا انقطاع كامل</p>
+    </div>
+    <div class="eq-sym">×</div>
+    <div class="eq-box intens">
+      <span class="eq-label">الكثافة</span>
+      <div class="eq-val">مستوى التركيز</div>
+      <p class="eq-sub">عمق الانغماس<br>وغياب التشتيت</p>
+    </div>
+    <div class="eq-sym">=</div>
+    <div class="eq-box result">
+      <span class="eq-label">الناتج</span>
+      <div class="eq-val">إنتاج عالي القيمة</div>
+      <p class="eq-sub">العمل الذي<br>يُغيّر مسارك</p>
+    </div>
+  </div>
+  <div class="eq-note">
+    <strong>الاستنتاج العملي:</strong> ثلاث ساعات من التركيز الكامل (كثافة ١٠٠٪) = عشر ساعات من العمل المتقطع (كثافة ٣٠٪). الندرة الحقيقية ليست الوقت — بل <strong>الكثافة</strong>.
+  </div>
+</section>
+
+<section class="sec dark">
+  <p class="stag">الأفكار الجوهرية</p>
+  <h2 class="sh2">أبرز مفاهيم الكتاب</h2>
+  <p class="sintro">الأفكار التي تُشكّل فلسفة كال نيوبورت في العمل والحياة المهنية</p>
+  <div class="ideas-grid">
+    <div class="icard">
+      <span class="icard-icon">💎</span>
+      <div class="icard-title">العمل العميق: المهارة الأندر والأكثر قيمة</div>
+      <p class="icard-body">في الاقتصاد المعرفي الذكاء الاصطناعي يُزيح العمل الروتيني. القيمة الحقيقية في القدرة على التعلم العميق وحل المشكلات المعقدة — وهذه تتطلب تركيزاً بلا انقطاع.</p>
+      <div class="icard-pull">النادر + القيّم = ميزة تنافسية لا تُشترى بالتكنولوجيا</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">🧠</span>
+      <div class="icard-title">فرضية الاهتمام العميق</div>
+      <p class="icard-body">ما تُوجّه إليه انتباهك يُشكّل حياتك الداخلية. الانتباه للمشكلات العميقة والمشاريع ذات المعنى يُنتج حياة غنية. الانتباه للتوافه والضحالة يُنتج عقلاً فارغاً.</p>
+      <div class="icard-pull">حياتك ليست مجموع ما فعلته — بل مجموع ما اهتممت به</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">🌐</span>
+      <div class="icard-title">شبكة العقل والفكر غير الخطي</div>
+      <p class="icard-body">أفضل الأفكار الإبداعية لا تأتي في أوقات التركيز المكثف — بل في أوقات الراحة اللاحقة. العقل اللاواعي يواصل المعالجة. النزهة، الدش، والنوم جزء من عملية التفكير.</p>
+      <div class="icard-pull">نيوبورت يُوصي بنزهات يومية بلا هاتف لتفعيل هذه المعالجة</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">📵</span>
+      <div class="icard-title">إعادة تقييم وسائل التواصل الاجتماعي</div>
+      <p class="icard-body">السؤال ليس "هل لهذه الأداة فائدة؟" — بل "هل فوائدها تتجاوز تكاليفها على وقت تركيزي؟" معظم الناس لا يُجري هذا الحساب. نيوبورت ترك تويتر وفيسبوك تماماً.</p>
+      <div class="icard-pull">ليس رفضاً للتكنولوجيا — بل انتقائية واعية لما تسمح له بدخول حياتك</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">🧩</span>
+      <div class="icard-title">أسطورة الإنتاجية بالتواصل المستمر</div>
+      <p class="icard-body">ثقافة "الباب المفتوح" والرد الفوري على كل رسالة يُدمر العمل العميق ويُعطي وهم الإنتاجية. من يبدو الأكثر انشغالاً ليس بالضرورة الأكثر إنتاجاً.</p>
+      <div class="icard-pull">التوقع بالرد الفوري مشكلة ثقافية لا شخصية — يمكن كسرها</div>
+    </div>
+    <div class="icard">
+      <span class="icard-icon">🏛️</span>
+      <div class="icard-title">الاستراتيجية بدلاً من الإرادة</div>
+      <p class="icard-body">الإرادة مورد محدود يُستنزف. الاستراتيجة الذكية هي تصميم بيئتك وجدولك بحيث تكون بحاجة لأقل إرادة ممكنة. الطقوس والأنظمة تُحل محل القرارات اليومية المُرهِقة.</p>
+      <div class="icard-pull">لا تعتمد على قرار "سأُركّز اليوم" — اجعل التركيز الاختيار الافتراضي</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec light">
+  <p class="stag">فلسفات العمل العميق</p>
+  <h2 class="sh2">أربع فلسفات — أيّها يناسبك؟</h2>
+  <p class="sintro">نيوبورت يُقدّم أربعة أنماط لدمج العمل العميق في حياتك — اختر ما يتناسب مع ظروفك</p>
+  <div class="phil-tabs">
+    <button class="ptab active" onclick="showPhil('monastic')">الرهباني</button>
+    <button class="ptab" onclick="showPhil('bimodal')">الثنائي</button>
+    <button class="ptab" onclick="showPhil('rhythmic')">الإيقاعي</button>
+    <button class="ptab" onclick="showPhil('journalistic')">الصحفي</button>
+  </div>
+  <div id="ph-monastic" class="phil-content show">
+    <div class="phil-card">
+      <div class="phil-title">🏔️ الفلسفة الرهبانية</div>
+      <span class="phil-who">Monastic Philosophy — للعبقريين المتفرغين</span>
+      <p class="phil-body">تخصيص الحياة بالكامل تقريباً للعمل العميق مع الحد الأدنى الممكن من الالتزامات الاجتماعية والمهنية الضحلة. مثال: دونالد كنوث (عالم الحاسوب) الذي لا يملك بريداً إلكترونياً منذ عقود.</p>
+      <div class="phil-pros-cons">
+        <div>
+          <span class="pc-col-title pro">المزايا</span>
+          <ul class="pc-list pro">
+            <li>أعلى إنتاجية ممكنة للعمل العميق</li>
+            <li>وضوح مطلق في الأولويات</li>
+            <li>تراكم الخبرة بسرعة استثنائية</li>
+          </ul>
+        </div>
+        <div>
+          <span class="pc-col-title con">التحديات</span>
+          <ul class="pc-list con">
+            <li>غير عملية لمعظم المهن الحديثة</li>
+            <li>تتطلب استقلالية مهنية عالية جداً</li>
+            <li>قد تُعيق فرص التعاون والنمو</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phil-note">💡 مناسبة لـ: الأكاديميين المتقدمين، الكتّاب المستقلين، العلماء المتخصصين</div>
+    </div>
+  </div>
+  <div id="ph-bimodal" class="phil-content">
+    <div class="phil-card">
+      <div class="phil-title">⚖️ الفلسفة الثنائية</div>
+      <span class="phil-who">Bimodal Philosophy — للتوازن بين العمق والمرونة</span>
+      <p class="phil-body">تقسيم الوقت لفترات مُخصصة بالكامل للعمل العميق (أيام أو أسابيع أو فصول) وفترات أخرى مفتوحة للعمل السطحي والتواصل. مثال: كارل يونغ كان يعتزل في برج قرى لأشهر للكتابة.</p>
+      <div class="phil-pros-cons">
+        <div>
+          <span class="pc-col-title pro">المزايا</span>
+          <ul class="pc-list pro">
+            <li>توازن بين العمق الحقيقي والمرونة</li>
+            <li>مناسبة للأدوار ذات التوقعات الاجتماعية</li>
+            <li>فترات العمق طويلة بما يكفي للتقدم</li>
+          </ul>
+        </div>
+        <div>
+          <span class="pc-col-title con">التحديات</span>
+          <ul class="pc-list con">
+            <li>تتطلب جدولاً مرناً جداً</li>
+            <li>قد لا تناسب الوظائف التقليدية</li>
+            <li>الاعتزال الطويل قد يكون صعب التطبيق</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phil-note">💡 مناسبة لـ: الأكاديميين، أصحاب الأعمال المستقلة، المديرين المرنين</div>
+    </div>
+  </div>
+  <div id="ph-rhythmic" class="phil-content">
+    <div class="phil-card">
+      <div class="phil-title">🔄 الفلسفة الإيقاعية</div>
+      <span class="phil-who">Rhythmic Philosophy — الأنسب لمعظم الناس</span>
+      <p class="phil-body">تحويل العمل العميق إلى عادة يومية ثابتة — نفس الوقت، نفس المكان، نفس المدة. الهدف بناء إيقاع لا يحتاج إلى تفاوض يومي. كاتب يكتب ٢٠٠٠ كلمة كل صباح قبل الفطور مثلاً.</p>
+      <div class="phil-pros-cons">
+        <div>
+          <span class="pc-col-title pro">المزايا</span>
+          <ul class="pc-list pro">
+            <li>قابلة للتطبيق في معظم الجداول</li>
+            <li>تُقلل الاحتكاك اليومي بالتكرار</li>
+            <li>تبني ثقة وزخم تدريجي</li>
+          </ul>
+        </div>
+        <div>
+          <span class="pc-col-title con">التحديات</span>
+          <ul class="pc-list con">
+            <li>جلسات أقصر من الفلسفات الأخرى</li>
+            <li>تتطلب حماية صارمة للوقت المحدد</li>
+            <li>بداية الإيقاع تحتاج أسابيع للترسيخ</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phil-note">💡 مناسبة لـ: موظفو المكاتب، الآباء المشغولون، من لديهم جداول ثابتة</div>
+    </div>
+  </div>
+  <div id="ph-journalistic" class="phil-content">
+    <div class="phil-card">
+      <div class="phil-title">📰 الفلسفة الصحفية</div>
+      <span class="phil-who">Journalistic Philosophy — للمحترفين المتمرسين فقط</span>
+      <p class="phil-body">القدرة على التحول للعمل العميق فوراً في أي وقت متاح، بدون وقت إحماء طويل. مثل الصحفي الذي يكتب مقالاً في ٣٠ دقيقة في أي بيئة. نيوبورت يُحذّر: تتطلب خبرة طويلة في العمل العميق أولاً.</p>
+      <div class="phil-pros-cons">
+        <div>
+          <span class="pc-col-title pro">المزايا</span>
+          <ul class="pc-list pro">
+            <li>أقصى استخدام لكل وقت متاح</li>
+            <li>مرونة عالية مع الجداول المزدحمة</li>
+            <li>لا تعتمد على وقت ثابت</li>
+          </ul>
+        </div>
+        <div>
+          <span class="pc-col-title con">التحديات</span>
+          <ul class="pc-list con">
+            <li>تتطلب سنوات من تدريب التركيز</li>
+            <li>غير مناسبة للمبتدئين أبداً</li>
+            <li>خطر التبرير بـ"لا وقت كافياً"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phil-note">💡 مناسبة لـ: المحترفون ذوو الخبرة الطويلة في إدارة التركيز</div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-sec">
+  <p class="big-q">"القدرة على أداء العمل العميق تُصبح نادرة في نفس الوقت الذي تُصبح فيه ذات قيمة استثنائية في الاقتصاد المعرفي"</p>
+  <p class="q-src">— كال نيوبورت، Deep Work</p>
+</section>
+
+<section class="sec white">
+  <p class="stag">طقوس العمل العميق</p>
+  <h2 class="sh2">طقوس تُهيّئ العقل للعمق</h2>
+  <p class="sintro">نيوبورت يُصرّ على أن العمل العميق يحتاج طقوساً — لا لمجرد الشعور الجيد بل لتقليل الاحتكاك وتوفير الإرادة</p>
+  <div class="rituals-list">
+    <div class="rrow">
+      <div class="rrow-num">١</div>
+      <div>
+        <div class="rrow-title">تحديد المكان المخصص</div>
+        <p class="rrow-body">المكان الواحد المخصص للعمل العميق يُبرمج دماغك بمرور الوقت — دخوله يُعني "وقت التركيز". لا تتصفح الانترنت أو تتحدث في هاتفك فيه. قدسية المكان تُقلل وقت الإحماء.</p>
+        <span class="rrow-eg">مثال: مكتبة معينة، مكتب مقفل، ركن ثابت في المنزل</span>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="rrow-num">٢</div>
+      <div>
+        <div class="rrow-title">تحديد مدة الجلسة مسبقاً</div>
+        <p class="rrow-body">الجلسة المفتوحة زمنياً تُضعف التركيز. "سأعمل حتى أنتهي" يُنتج قلقاً. "سأعمل لمدة ٩٠ دقيقة" يُتيح للعقل التركيز الكامل. الحد الزمني يُطلق الإنتاجية بدلاً من تقييدها.</p>
+        <span class="rrow-eg">مثال: ٩٠ دقيقة صباحاً — موقت على الطاولة</span>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="rrow-num">٣</div>
+      <div>
+        <div class="rrow-title">إغلاق كل المشتتات قبل البدء</div>
+        <p class="rrow-body">لا إشعارات، لا بريد، لا هاتف مرئي. ضع قائمة بكل ما قد يُقاطعك وأغلقه قبل البدء — ليس أثناء العمل. القطع المسبق أسهل بكثير من المقاومة المستمرة أثناء التركيز.</p>
+        <span class="rrow-eg">مثال: هاتف في الغرفة الأخرى + Freedom app لحجب المواقع</span>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="rrow-num">٤</div>
+      <div>
+        <div class="rrow-title">تحديد المهمة بدقة</div>
+        <p class="rrow-body">قبل الجلسة اكتب جملة واحدة: ماذا ستُنجز تحديداً بنهايتها؟ الغموض يُولّد قلق التأجيل. الوضوح يُطلق التركيز. "سأكتب القسم الأول من التقرير" أقوى من "سأعمل على التقرير".</p>
+        <span class="rrow-eg">مثال: بطاقة صغيرة مكتوب عليها هدف الجلسة أمامك دائماً</span>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="rrow-num">٥</div>
+      <div>
+        <div class="rrow-title">طقس البدء المحدد</div>
+        <p class="rrow-body">فنجان قهوة، جملة ترددها، تنفس عميق، إغلاق الباب — أي طقس صغير ثابت تفعله قبل كل جلسة يُصبح بمرور الوقت إشارة للدماغ: "حان وقت التركيز العميق".</p>
+        <span class="rrow-eg">مثال: قهوة + فتح الدفتر + قراءة هدف الجلسة</span>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="rrow-num">٦</div>
+      <div>
+        <div class="rrow-title">طريقة تسجيل التقدم</div>
+        <p class="rrow-body">احتفظ بسجل مرئي للعمل العميق: ساعات اليوم، جلسات الأسبوع، الإنجاز المحقق. البيانات المرئية تُحفّز الاستمرار وتُكشف الأنماط. أنت تُحسّن ما تقيسه.</p>
+        <span class="rrow-eg">مثال: دفتر صغير تُسجّل فيه ساعات التركيز يومياً</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec darker">
+  <p class="stag">التطبيق العملي</p>
+  <h2 class="sh2">تطبيقات تبدأ بها اليوم</h2>
+  <p class="sintro">أدوات وأساليب ملموسة مستخلصة من الكتاب — مرتّبة من الأسهل للأعمق</p>
+  <div class="prac-grid">
+    <div class="pcard">
+      <span class="pcard-icon">📵</span>
+      <div class="pcard-title">بلوك التركيز اليومي</div>
+      <p class="pcard-body">خصص ٩٠ دقيقة كل صباح — قبل فتح البريد والإشعارات — للمهمة الأهم. هذه الجلسة الواحدة ستتجاوز إنتاجية ساعات من العمل المتقطع.</p>
+      <div class="pcard-tip">💡 "افعل المهمة الصعبة أولاً" — هذا ليس شعاراً، بل هندسة للطاقة</div>
+      <span class="diff-tag d-now">ابدأ الآن</span>
+    </div>
+    <div class="pcard">
+      <span class="pcard-icon">📋</span>
+      <div class="pcard-tip">تخطيط يومك بالكامل في الصباح</div>
+      <p class="pcard-body">قبل بدء العمل خصص ١٠ دقائق لتخطيط يومك: متى ستعمل عمقاً؟ متى تُجيب البريد؟ متى الاجتماعات؟ اليوم المُخطَّط ينتج ضعف اليوم العشوائي.</p>
+      <div class="pcard-tip">💡 الجدول ليس سجناً — هو خريطة تُوجّهك حين تضيع في التفاصيل</div>
+      <span class="diff-tag d-now">ابدأ الآن</span>
+    </div>
+    <div class="pcard">
+      <span class="pcard-icon">🔢</span>
+      <div class="pcard-title">قاعدة النتيجة الرائدة</div>
+      <p class="pcard-body">حدد رقماً واحداً يُعبّر عن تقدمك: ساعات التركيز اليومية أو الكلمات المكتوبة أو المهام العميقة المنجزة. ضعه على ورقة أمامك. ما تقيسه يتحسن.</p>
+      <div class="pcard-tip">💡 الهدف: ٤ ساعات عمل عميق يومياً (نيوبورت يقول هذا الحد الأقصى عملياً)</div>
+      <span class="diff-tag d-now">ابدأ الآن</span>
+    </div>
+    <div class="pcard">
+      <span class="pcard-icon">🚶</span>
+      <div class="pcard-title">نزهة يومية بلا هاتف</div>
+      <p class="pcard-body">٢٠-٣٠ دقيقة مشياً يومياً بلا هاتف ولا سماعات. اسمح لعقلك بالتجوال الحر. هذا ليس وقتاً ضائعاً — هو وقت المعالجة اللاواعية التي تُنتج أفضل الأفكار.</p>
+      <div class="pcard-tip">💡 نيوبورت نفسه يُسميها "التأمل الإنتاجي" — حل مشكلة أثناء المشي</div>
+      <span class="diff-tag d-now">ابدأ الآن</span>
+    </div>
+    <div class="pcard">
+      <span class="pcard-icon">📨</span>
+      <div class="pcard-title">البريد: مرتين يومياً فقط</div>
+      <p class="pcard-body">حدد وقتين ثابتين لفتح البريد: صباحاً ومساءً. خارجهما — مغلق. معظم "الطوارئ" ليست طوارئ. هذا القرار وحده يُعيد لك ساعات من التركيز كل أسبوع.</p>
+      <div class="pcard-tip">💡 أضف توقيعاً لبريدك: "أتحقق من البريد مرتين يومياً — ١٠ص و٤م"</div>
+      <span class="diff-tag d-soon">قريباً</span>
+    </div>
+    <div class="pcard">
+      <span class="pcard-icon">🎯</span>
+      <div class="pcard-title">نهاية العمل بطقس الإغلاق</div>
+      <p class="pcard-body">كل يوم اختم العمل بطقس واضح: راجع قائمة المهام، أكمل ما يمكن إكماله، خطط للغد، ثم قل بصوت: "انتهى العمل اليوم". هذا يُوقف القلق المسائي من المهام المعلقة.</p>
+      <div class="pcard-tip">💡 الدراسات تُثبت أن كتابة الخطة الغدية تُوقف حلقة القلق الليلية</div>
+      <span class="diff-tag d-soon">قريباً</span>
+    </div>
+    <div class="pcard">
+      <span class="pcard-icon">🏗️</span>
+      <div class="pcard-title">تقييم العمل السطحي</div>
+      <p class="pcard-body">لكل مهمة اسأل: "كم وقتاً سيحتاج موظف جديد ذكي لتعلم هذه المهمة وتنفيذها؟" كلما كان الجواب أقصر، كلما كانت المهمة أسطح. حدد نسبة السطحي في يومك وقلّصها.</p>
+      <div class="pcard-tip">💡 نيوبورت يُوصي بألا يتجاوز العمل السطحي ٣٠-٥٠٪ من اليوم</div>
+      <span class="diff-tag d-soon">قريباً</span>
+    </div>
+    <div class="pcard">
+      <span class="pcard-icon">📵</span>
+      <div class="pcard-title">إعادة تقييم وسائل التواصل</div>
+      <p class="pcard-body">لكل منصة اسأل: "هل الفوائد الحقيقية لهذه المنصة في حياتي المهنية تستحق التكلفة على وقت تركيزي؟" اترك لمدة ٣٠ يوماً، ثم قرر بناءً على التأثير الفعلي.</p>
+      <div class="pcard-tip">💡 تجربة ٣٠ يوماً بدون منصة — لاحظ ماذا يحدث لإنتاجيتك وسعادتك</div>
+      <span class="diff-tag d-deep">عميق</span>
+    </div>
+    <div class="pcard">
+      <span class="pcard-icon">🧠</span>
+      <div class="pcard-title">تدريب الانتباه كعضلة</div>
+      <p class="pcard-body">حين تشعر بالملل — في الطابور، في المصعد — لا تتحقق من الهاتف. تحمّل عدم الراحة. كل مرة تقاوم فيها التشتيت تُقوّي عضلة التركيز مثلما يُقوّي التمرين العضلات.</p>
+      <div class="pcard-tip">💡 الملل ليس عدواً للإنتاجية — هو تدريبها</div>
+      <span class="diff-tag d-deep">عميق</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec shutdown-sec">
+  <p class="stag">طقس الإغلاق</p>
+  <h2 class="sh2">Shutdown Complete — طقس إنهاء العمل</h2>
+  <p class="sintro">نيوبورت يُصف هذا الطقس بأنه من أكثر تقنياته تأثيراً على جودة حياته — يفصل العمل عن الراحة تماماً</p>
+  <div class="shutdown-steps">
+    <div class="sstep">
+      <span class="sstep-n">١</span>
+      <div class="sstep-title">مراجعة البريد الأخير</div>
+      <p class="sstep-body">تأكد أنك لم تفوّت شيئاً عاجلاً يحتاج رداً الآن. بعد هذه اللحظة — لا بريد حتى الغد.</p>
+    </div>
+    <div class="sstep">
+      <span class="sstep-n">٢</span>
+      <div class="sstep-title">مراجعة قائمة المهام</div>
+      <p class="sstep-body">مرّ على كل مهمة: هل أُنجزت؟ هل تحتاج تحويلاً لشخص آخر؟ هل موقعها المناسب في قائمة الغد؟</p>
+    </div>
+    <div class="sstep">
+      <span class="sstep-n">٣</span>
+      <div class="sstep-title">تخطيط الغد</div>
+      <p class="sstep-body">اكتب أهم ثلاث مهام للغد وموقعها في الجدول. هذا يُطلق دماغك من القلق ويُسرّع بداية الغد.</p>
+    </div>
+    <div class="sstep">
+      <span class="sstep-n">٤</span>
+      <div class="sstep-title">إغلاق كل النوافذ</div>
+      <p class="sstep-body">أغلق المتصفح، أغلق التطبيقات، أوقف الإشعارات. الإغلاق المادي الكامل يُعزز الفصل الذهني.</p>
+    </div>
+    <div class="sstep">
+      <span class="sstep-n">٥</span>
+      <div class="sstep-title">الجملة السحرية</div>
+      <p class="sstep-body">قل بصوت واضح: <em>"انتهى العمل اليوم — Shutdown complete"</em>. هذا الإعلان اللفظي يُغلق حلقة ذهنية ويُسمح لك بالراحة الحقيقية.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Deep Work</strong> — كال نيوبورت · ٢٠١٦<br>
+  <span style="margin-top:.5rem;display:block">ملخص تعليمي · جميع الأفكار منسوبة لأصحابها الأصليين</span>
+</footer>
+
+<script>
+(function(){
+  const c=document.getElementById('particles');
+  for(let i=0;i<55;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.right=Math.random()*100+'%';
+    p.style.top=Math.random()*100+'%';
+    const dx=(Math.random()-.5)*120,dy=(Math.random()-.5)*120;
+    p.style.setProperty('--dx',dx+'px');
+    p.style.setProperty('--dy',dy+'px');
+    p.style.animationDuration=(8+Math.random()*14)+'s';
+    p.style.animationDelay=-(Math.random()*14)+'s';
+    c.appendChild(p);
+  }
+})();
+function showPhil(id){
+  document.querySelectorAll('.phil-content').forEach(d=>d.classList.remove('show'));
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ph-'+id).classList.add('show');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

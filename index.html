@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>كرّاسة الممارِس · عشرة كتب تُطبَّق</title>
+<meta name="description" content="مكتبة ملخّصات وافية لعشرة كتب في العادات والعقل والتركيز والمال والمعنى." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --f:'Cairo',sans-serif;
+    --bg:#2E2B22; --bg-2:#38342A; --bg-3:#433E30;
+    --paper:#F5EFE0; --ink:#16140E;
+    --gold:#CFA445; --gold-b:#E6C879; --rust:#A8472A;
+    --muted:#CEC5AC; --muted-2:#A89E84;
+    --line:rgba(207,164,69,.2);
+    --shadow:0 20px 50px -20px rgba(0,0,0,.75);
+    --r:16px; --maxw:1200px;
+  }
+
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body {
+    background:var(--bg);
+    color:var(--paper);
+    font-family:"IBM Plex Sans Arabic", system-ui, sans-serif;
+    line-height:1.8;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(ellipse 120% 70% at 85% 0%, rgba(207,164,69,.09) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 60% at -5% 100%, rgba(168,71,42,.07) 0%, transparent 50%);
+    background-attachment:fixed;
+  }
+  ::selection { background:var(--gold); color:var(--ink); }
+  h1,h2,h3,h4 { font-family:"Reem Kufi", serif; font-weight:600; line-height:1.35; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:"IBM Plex Mono", monospace; }
+  .wrap { max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(18px,5vw,44px); }
+
+  .site-nav {
+    position:sticky; top:0; z-index:80;
+    height:60px;
+    display:flex; align-items:center;
+    background:linear-gradient(180deg, rgba(28,26,21,.95) 0%, rgba(28,26,21,.78) 100%);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+  }
+  .site-nav .wrap { display:flex; align-items:center; justify-content:space-between; width:100%; }
+  .brand { display:flex; align-items:center; gap:11px; font-family:"Reem Kufi"; font-weight:600; font-size:1.1rem; }
+  .brand .seal {
+    width:32px; height:32px; border-radius:8px; flex:none;
+    background:linear-gradient(135deg, var(--gold), #9c7420);
+    color:var(--ink); display:grid; place-items:center;
+    font-weight:700; font-size:.95rem;
+    box-shadow:0 0 0 1px rgba(230,200,121,.35) inset;
+  }
+  .nav-tag { font-family:"IBM Plex Mono"; font-size:.75rem; color:var(--muted); letter-spacing:.06em; }
+  .nav-tag b { color:var(--gold-b); }
+
+  .hero { padding:clamp(60px,12vh,130px) 0 clamp(44px,7vh,80px); position:relative; overflow:hidden; }
+  .hero::before {
+    content:""; position:absolute; inset-inline-start:0; top:0;
+    width:100%; height:100%; pointer-events:none;
+    background:linear-gradient(105deg, transparent 40%, rgba(207,164,69,.04) 70%, transparent 90%);
+  }
+  .hero-spines { position:absolute; inset:0; pointer-events:none; }
+  .hero-spines span {
+    position:absolute; top:0; bottom:0; width:1px;
+    background:linear-gradient(180deg, transparent 0%, rgba(207,164,69,.14) 50%, transparent 100%);
+  }
+  .eyebrow {
+    font-family:"IBM Plex Mono"; font-size:.74rem; letter-spacing:.36em;
+    text-transform:uppercase; color:var(--gold);
+    display:inline-flex; align-items:center; gap:14px; margin-bottom:28px;
+  }
+  .eyebrow::before { content:""; width:38px; height:1px; background:linear-gradient(90deg,transparent,var(--gold)); }
+  .hero h1 {
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    line-height:1.1; font-weight:700; letter-spacing:-.5px;
+    max-width:14ch;
+  }
+  .hero h1 em { color:var(--gold-b); font-style:normal; position:relative; }
+  .hero p.sub {
+    margin-top:28px; max-width:50ch;
+    font-size:clamp(1rem, 2vw, 1.2rem); color:var(--muted); font-weight:300; line-height:1.95;
+  }
+  .hero p.sub b { color:var(--paper); font-weight:500; }
+  .hero-stats {
+    margin-top:48px; display:flex; gap:clamp(20px,5vw,60px); flex-wrap:wrap;
+    padding-top:28px; border-top:1px solid var(--line);
+  }
+  .stat { display:flex; flex-direction:column; gap:2px; }
+  .stat .n { font-family:"Reem Kufi"; font-weight:700; font-size:clamp(1.9rem,4.5vw,2.8rem); color:var(--gold-b); line-height:1; }
+  .stat .l { font-size:.82rem; color:var(--muted); letter-spacing:.04em; }
+
+  .section { padding:clamp(48px,8vh,90px) 0; }
+  .sec-label { font-family:"IBM Plex Mono"; font-size:.73rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:12px; }
+  .sec-title { font-size:clamp(1.8rem,4vw,2.7rem); letter-spacing:-.4px; }
+  .sec-sub { color:var(--muted); margin-top:10px; font-weight:300; max-width:50ch; }
+
+  .filter-bar { display:flex; flex-wrap:wrap; gap:9px; margin:28px 0 32px; }
+  .chip {
+    font-family:"IBM Plex Sans Arabic"; font-size:.86rem;
+    padding:7px 17px; border-radius:99px; cursor:pointer;
+    background:var(--bg-2); border:1px solid var(--line); color:var(--muted);
+    transition:border-color .18s, color .18s, background .18s;
+  }
+  .chip:hover { color:var(--paper); border-color:rgba(207,164,69,.45); }
+  .chip.on { background:var(--gold); color:var(--ink); border-color:var(--gold); font-weight:600; }
+
+  .book-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:18px; }
+
+  .book-card {
+    display:block; position:relative;
+    background:linear-gradient(155deg, var(--bg-2) 0%, var(--bg-3) 100%);
+    border:1px solid var(--line);
+    border-radius:var(--r); overflow:hidden;
+    transition:transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s, border-color .28s;
+  }
+  .book-card:hover { transform:translateY(-5px); box-shadow:var(--shadow); border-color:rgba(207,164,69,.45); }
+
+  .book-card .stripe {
+    position:absolute; inset-inline-start:0; top:0; bottom:0; width:4px;
+    opacity:.85; transition:opacity .28s;
+  }
+  .book-card:hover .stripe { opacity:1; }
+
+  .book-card .inner { padding:24px 24px 22px 24px; }
+  .book-card .top-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .book-card .num { font-family:"IBM Plex Mono"; font-size:.78rem; font-weight:600; color:var(--gold); letter-spacing:.1em; }
+  .book-card .cat-badge {
+    font-size:.65rem; padding:3px 10px; border-radius:99px;
+    border:1px solid var(--line); color:var(--muted-2); letter-spacing:.03em;
+    font-family:"IBM Plex Sans Arabic";
+  }
+  .book-card h3 { font-size:1.35rem; color:var(--paper); margin-bottom:3px; }
+  .book-card .en-row { font-family:"IBM Plex Mono"; font-size:.7rem; color:var(--muted-2); letter-spacing:.04em; margin-bottom:14px; display:block; }
+  .book-card .desc { font-size:.92rem; color:var(--muted); font-weight:300; line-height:1.8; }
+  .book-card .card-foot {
+    margin-top:20px; padding-top:16px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .book-card .author { font-size:.78rem; color:var(--muted-2); }
+  .book-card .go-link {
+    display:flex; align-items:center; gap:6px;
+    font-family:"Reem Kufi"; font-size:.84rem; color:var(--gold); font-weight:500;
+    transition:gap .2s;
+  }
+  .book-card:hover .go-link { gap:10px; }
+  .book-card .go-link svg { transition:transform .22s; }
+  .book-card:hover .go-link svg { transform:translateX(-4px); }
+
+  .path-section { padding:clamp(44px,7vh,80px) 0; border-top:1px solid var(--line); }
+  .path-list { margin-top:36px; display:flex; flex-direction:column; gap:0; }
+  .path-item {
+    display:flex; align-items:stretch; gap:0;
+    text-decoration:none; color:inherit;
+  }
+  .path-line {
+    display:flex; flex-direction:column; align-items:center;
+    width:40px; flex-shrink:0; position:relative;
+  }
+  .path-dot {
+    width:32px; height:32px; border-radius:50%; flex-shrink:0;
+    display:grid; place-items:center;
+    font-family:"IBM Plex Mono"; font-weight:600; font-size:.72rem;
+    background:var(--bg-3); border:1px solid var(--line); color:var(--gold);
+    transition:background .2s, border-color .2s;
+    position:relative; z-index:2;
+  }
+  .path-item:hover .path-dot { background:rgba(207,164,69,.18); border-color:var(--gold); }
+  .path-connector {
+    width:1px; flex:1; background:var(--line); margin:0 auto;
+    min-height:16px;
+  }
+  .path-item:last-child .path-connector { display:none; }
+  .path-body {
+    flex:1; padding:4px 0 22px 20px;
+    padding-inline-start:20px;
+  }
+  .path-item:hover .path-body { color:var(--paper); }
+  .path-title { font-family:"Reem Kufi"; font-size:1.1rem; color:var(--paper); font-weight:600; }
+  .path-meta { font-family:"IBM Plex Mono"; font-size:.7rem; color:var(--muted-2); margin-top:2px; letter-spacing:.04em; }
+  .path-desc { font-size:.88rem; color:var(--muted); font-weight:300; line-height:1.75; margin-top:5px; }
+
+  .closing {
+    text-align:center; padding:clamp(56px,10vh,100px) 0;
+    border-top:1px solid var(--line);
+  }
+  .closing h2 { font-size:clamp(1.7rem,4.5vw,3rem); line-height:1.42; max-width:20ch; margin-inline:auto; }
+  .closing h2 .g { color:var(--gold-b); }
+  .closing p { color:var(--muted); margin-top:18px; font-weight:300; max-width:44ch; margin-inline:auto; font-size:1.05rem; }
+  .cta-btn {
+    display:inline-flex; align-items:center; gap:10px;
+    margin-top:36px; padding:14px 28px; border-radius:99px;
+    background:linear-gradient(135deg, var(--gold), #a87d24);
+    color:var(--ink); font-family:"Reem Kufi"; font-weight:600; font-size:1rem;
+    box-shadow:0 10px 28px -10px rgba(207,164,69,.7);
+    transition:transform .22s, box-shadow .22s;
+  }
+  .cta-btn:hover { transform:translateY(-3px); box-shadow:0 16px 34px -10px rgba(207,164,69,.8); }
+
+  footer { border-top:1px solid var(--line); padding:34px 0; text-align:center; color:var(--muted-2); font-size:.83rem; }
+  footer .brand { justify-content:center; margin-bottom:10px; color:var(--paper); }
+
+  .totop {
+    position:fixed; inset-inline-end:20px; bottom:20px;
+    width:44px; height:44px; border-radius:50%;
+    background:var(--gold); color:var(--ink);
+    display:grid; place-items:center; cursor:pointer;
+    opacity:0; pointer-events:none; transition:opacity .3s, transform .22s; z-index:70;
+    box-shadow:0 8px 24px -8px rgba(207,164,69,.8);
+  }
+  .totop.show { opacity:1; pointer-events:auto; }
+  .totop:hover { transform:translateY(-3px); }
+
+  .rv { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .rv.in { opacity:1; transform:none; }
+
+  @media (max-width:640px) {
+    .book-grid { grid-template-columns:1fr; }
+    .path-body { padding-bottom:18px; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    * { transition:none !important; animation:none !important; }
+    .rv { opacity:1 !important; transform:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <div class="brand">
+      <span class="seal">ك</span>
+      <span>كرّاسة الممارِس</span>
+    </div>
+    <span class="nav-tag mono"><b>10</b> كتب مُطبَّقة</span>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-spines" aria-hidden="true">
+    <span style="inset-inline-start:15%"></span>
+    <span style="inset-inline-start:48%"></span>
+    <span style="inset-inline-start:82%"></span>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow">مكتبة التطبيق · عشرة كتب</span>
+    <h1 class="rv">الكتب كُتبت<br><em>لتُطبَّق</em><br>لا لتُقرأ فقط.</h1>
+    <p class="sub rv">
+      عشرة كتب في <b>العادات</b> و<b>العقل</b> و<b>التركيز</b> و<b>المال</b> والإرادة —
+      مكثّفة في ملخّصات وافية وخطوات قابلة للتنفيذ هذا الأسبوع.
+    </p>
+    <div class="hero-stats rv">
+      <div class="stat"><span class="n">10</span><span class="l">كتاباً ملخّصاً</span></div>
+      <div class="stat"><span class="n">5</span><span class="l">مجالات للحياة</span></div>
+      <div class="stat"><span class="n">50+</span><span class="l">خطوة تطبيقية</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="books">
+  <div class="wrap">
+    <div class="rv">
+      <span class="sec-label">المكتبة · The Library</span>
+      <h2 class="sec-title">اختر كتابك</h2>
+      <p class="sec-sub">انقر على أي بطاقة لتفتح الملخّص الكامل وخطة التطبيق.</p>
+    </div>
+    <div class="filter-bar rv" id="filters"></div>
+    <div class="book-grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="path-section" id="path">
+  <div class="wrap">
+    <div class="rv">
+      <span class="sec-label">مسار القراءة · Reading Path</span>
+      <h2 class="sec-title">الترتيب المقترح</h2>
+      <p class="sec-sub">القراءة بهذا الترتيب تبني طبقات: عادات → صحة → عقل → مال → إرادة.</p>
+    </div>
+    <div class="path-list rv" id="path-list"></div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <h2 class="rv">المعرفة التي لا تتحوّل إلى <span class="g">فعل</span><br>تبقى مجرّد معلومة جميلة.</h2>
+    <p class="rv">اختر كتاباً الآن. اقرأ ملخّصه. طبّق خطوةً واحدة هذا الأسبوع.</p>
+    <a href="#books" class="cta-btn rv">
+      ابدأ من هنا
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 19V6M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <span class="seal">ك</span>
+      <span>كرّاسة الممارِس</span>
+    </div>
+    <div>لأن الكتب كُتبت لتُطبَّق لا لتُقرأ فقط.</div>
+  </div>
+</footer>
+
+<div class="totop" id="totop" title="إلى الأعلى">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 19V6M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
+
+<script>
+const CATS = ["الكل","العادات والإنتاجية","الصحة والتوازن","العقل والوعي","المال والاستثمار","الإرادة والتحدي"];
+
+const BOOKS = [
+  { num:"01", file:"atomic-habits.html", color:"#d4520a", ar:"العادات الذرية", en:"Atomic Habits", author:"جيمس كلير", cat:"العادات والإنتاجية", desc:"تحسّنٌ بنسبة 1% يومياً يتراكم ليصنع إنساناً مختلفاً. لا ترتقي إلى مستوى أهدافك — بل تهبط إلى مستوى أنظمتك." },
+  { num:"02", file:"why-we-sleep.html", color:"#2257a0", ar:"لماذا ننام", en:"Why We Sleep", author:"ماثيو ووكر", cat:"الصحة والتوازن", desc:"النوم ليس رفاهيةً تُقتطع من الإنجاز — هو الأساس الذي يقوم عليه العقل والجسد والإبداع." },
+  { num:"03", file:"dopamine-nation-1.html", color:"#0f7c7a", ar:"أمة الدوبامين", en:"Dopamine Nation", author:"آنا ليمبكي", cat:"الصحة والتوازن", desc:"في عالمٍ فائض المتع، السعي الدائم للّذة يميل بالميزان نحو الألم. الترياق: القدرة على احتمال غياب المتعة." },
+  { num:"04", file:"subconscious-mind.html", color:"#6d28d9", ar:"قوة عقلك الباطن", en:"The Power of Your Subconscious Mind", author:"جوزيف ميرفي", cat:"العقل والوعي", desc:"عقلك الباطن يقبل ما تُبرمجه ثم ينفّذه دون تمييز. غيّر حديثك الداخلي، فيتغيّر مزاجك وسلوكك." },
+  { num:"05", file:"power-of-habit-v2.html", color:"#0d7e72", ar:"قوة العادات", en:"The Power of Habit", author:"تشارلز دوهيج", cat:"العادات والإنتاجية", desc:"لماذا نفعل ما نفعله في الحياة والأعمال — وكيف نعيد البرمجة من خلال حلقة العادة الثلاثية." },
+  { num:"06", file:"flow-psychology.html", color:"#b45309", ar:"التدفّق", en:"Flow", author:"ميهاي تشيكسنتميهايي", cat:"العادات والإنتاجية", desc:"أفضل لحظاتك ليست لحظات الاسترخاء، بل لحظات الانغماس الكامل في تحدٍّ يوازي مهارتك تماماً." },
+  { num:"07", file:"deep-work.html", color:"#1e3a8a", ar:"العمل العميق", en:"Deep Work", author:"كال نيوبورت", cat:"العادات والإنتاجية", desc:"القدرة على التركيز العميق أصبحت نادرة وثمينة. من يتقنها ينتج ما يصعب تكراره ويصبح لا غنى عنه." },
+  { num:"08", file:"psychology-of-money.html", color:"#065f46", ar:"سيكولوجية المال", en:"The Psychology of Money", author:"مورغان هاوزل", cat:"المال والسلوك", desc:"ليس النجاح المالي علماً — بل سلوك. الكيف الذي تتصرف به مع المال أهم بكثير من ما تعرفه عنه." },
+  { num:"09", file:"rich-dad-poor-dad.html", color:"#c8860a", ar:"الأب الغني والأب الفقير", en:"Rich Dad Poor Dad", author:"روبرت كيوساكي", cat:"المال والاستثمار", desc:"ما يُعلّمه الأغنياء لأبنائهم عن المال وبناء الأصول — وما يجهله الجميع رغم سنوات الدراسة." },
+  { num:"10", file:"power-of-focus.html", color:"#7c5a0a", ar:"قوة التركيز", en:"The Power of Focus", author:"جاك كانفيلد وآخرون", cat:"العادات والإنتاجية", desc:"كيف تتحكم في انتباهك وتحقق أهدافك الكبرى — بخطوات ممنهجة اتبعها أنجح الناس في العالم." }
+];
+
+const chevron = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M14 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+const filtersEl = document.getElementById('filters');
+CATS.forEach((cat, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'chip' + (i === 0 ? ' on' : '');
+  btn.textContent = cat;
+  btn.onclick = () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+    btn.classList.add('on');
+    document.querySelectorAll('.book-card').forEach(card => {
+      card.style.display = (cat === 'الكل' || card.dataset.cat === cat) ? '' : 'none';
+    });
+  };
+  filtersEl.appendChild(btn);
+});
+
+const gridEl = document.getElementById('grid');
+BOOKS.forEach(b => {
+  const a = document.createElement('a');
+  a.href = b.file;
+  a.className = 'book-card rv';
+  a.dataset.cat = b.cat;
+  a.innerHTML = `
+    <div class="stripe" style="background:linear-gradient(180deg,${b.color},transparent)"></div>
+    <div class="inner">
+      <div class="top-row">
+        <span class="num mono">${b.num}</span>
+        <span class="cat-badge">${b.cat}</span>
+      </div>
+      <h3>${b.ar}</h3>
+      <span class="en-row">${b.en} · ${b.author}</span>
+      <p class="desc">${b.desc}</p>
+      <div class="card-foot">
+        <span class="author">${b.author}</span>
+        <span class="go-link">اقرأ ${chevron}</span>
+      </div>
+    </div>`;
+  gridEl.appendChild(a);
+});
+
+const pathEl = document.getElementById('path-list');
+BOOKS.forEach(b => {
+  const item = document.createElement('a');
+  item.href = b.file;
+  item.className = 'path-item';
+  item.innerHTML = `
+    <div class="path-line">
+      <div class="path-dot" style="border-color:${b.color}30;color:${b.color}">${b.num}</div>
+      <div class="path-connector"></div>
+    </div>
+    <div class="path-body">
+      <div class="path-title">${b.ar}</div>
+      <div class="path-meta">${b.en} · ${b.author} · ${b.cat}</div>
+      <div class="path-desc">${b.desc}</div>
+    </div>`;
+  pathEl.appendChild(item);
+});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold:.08 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+const totop = document.getElementById('totop');
+window.addEventListener('scroll', () => totop.classList.toggle('show', window.scrollY > 500));
+totop.onclick = () => window.scrollTo({ top:0, behavior:'smooth' });
+</script>
+</body>
+</html>
